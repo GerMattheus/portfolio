@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/fraunces/wght-italic.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/jetbrains-mono";
+
+/* ─── Variables globales ─────────────────────────────────────── */
+:root {
+  /* Couleurs */
+  --bg-primary:    #0A0E0D;
+  --bg-secondary:  #11161A;
+  --bg-tertiary:   #1A2024;
+
+  --text-primary:  #E8EDE9;
+  --text-secondary:#8A938E;
+  --text-muted:    #4A524E;
+
+  --accent-primary:#7FFFB5;
+  --accent-warm:   #FF6B9D;
+  --accent-cool:   #4DD0E1;
+
+  --border:        #1F2624;
+  --border-subtle: #151A18;
+
+  /* Typographie — mobile-first, augmente au clamp */
+  --text-hero:  clamp(3rem, 10vw, 8rem);
+  --text-h1:    clamp(2.5rem, 6vw, 5rem);
+  --text-h2:    clamp(1.75rem, 4vw, 3rem);
+  --text-h3:    clamp(1.25rem, 2.5vw, 1.75rem);
+  --text-body:  1.0625rem;
+  --text-small: 0.875rem;
+  --text-mono:  0.8125rem;
+
+  /* Espacement (base 8px) */
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  /* Conteneurs */
+  --container-max:  1280px;
+  --container-text: 720px;
+
+  /* Animations */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-micro: 200ms;
+  --duration-base:  400ms;
+  --duration-slow:  600ms;
+}
+
+/* ─── Reset minimal ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto; /* Lenis gère le smooth scroll */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ─── Utilitaires typographiques ─────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  }
+  .font-body {
+    font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  }
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  .text-hero  { font-size: var(--text-hero); }
+  .text-h1    { font-size: var(--text-h1); }
+  .text-h2    { font-size: var(--text-h2); }
+  .text-h3    { font-size: var(--text-h3); }
+  .text-body  { font-size: var(--text-body); }
+  .text-small { font-size: var(--text-small); }
+  .text-mono  { font-size: var(--text-mono); }
+
+  /* Couleurs sémantiques */
+  .text-primary   { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted     { color: var(--text-muted); }
+  .text-accent    { color: var(--accent-primary); }
+  .text-accent-warm { color: var(--accent-warm); }
+  .text-accent-cool { color: var(--accent-cool); }
+
+  .bg-primary   { background-color: var(--bg-primary); }
+  .bg-secondary { background-color: var(--bg-secondary); }
+  .bg-tertiary  { background-color: var(--bg-tertiary); }
+
+  /* Tracking serré pour les gros titres */
+  .tracking-tight-display { letter-spacing: -0.03em; }
+
+  /* Conteneur éditorial */
+  .container-max  { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--space-4); }
+  .container-text { max-width: var(--container-text); }
+
+  /* Section padding */
+  .section-padding { padding-block: var(--space-16); }
+
+  /* Bordure sémantique */
+  .border-subtle { border-color: var(--border-subtle); }
+  .border-default { border-color: var(--border); }
+}
+
+/* ─── Focus visible accessible (anneau vert fluo) ───────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Respect du prefers-reduced-motion ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

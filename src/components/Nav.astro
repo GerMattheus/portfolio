@@ -1,0 +1,73 @@
+---
+const links = [
+  { label: "À propos",   href: "#about" },
+  { label: "Projets",    href: "#projects" },
+  { label: "Contact",    href: "#contact" },
+];
+---
+
+<nav aria-label="Navigation principale">
+  <ul>
+    {links.map(link => (
+      <li>
+        <a href={link.href}>{link.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: var(--space-4);
+    right: var(--space-4);
+    z-index: 100;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color var(--duration-micro) var(--ease-out);
+    position: relative;
+  }
+
+  /* Underline animé de gauche à droite */
+  a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-cool);
+    transition: width var(--duration-base) var(--ease-out);
+  }
+
+  a:hover {
+    color: var(--text-primary);
+  }
+
+  a:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    nav {
+      top: var(--space-3);
+      right: var(--space-3);
+    }
+
+    ul {
+      gap: var(--space-3);
+    }
+  }
+</style>

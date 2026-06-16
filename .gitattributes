@@ -1,0 +1,7 @@
+# Normalise les fins de ligne : LF dans le dépôt, CRLF pour Windows localement
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.ico binary
+*.avif binary
+*.webp binary
