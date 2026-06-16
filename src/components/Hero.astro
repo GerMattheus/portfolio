@@ -1,0 +1,289 @@
+---
+import DnaHelix from './DnaHelix.astro';
+
+// Séparation des lettres pour l'animation de séquençage
+const firstName = "Mattheus";
+const lastName  = "Germano";
+---
+
+<section class="hero" id="hero">
+
+  <!-- Image droite avec masque dégradé -->
+  <div class="hero-image" aria-hidden="true">
+    <div class="hero-image-parallax">
+      <img
+        src="/images/01-hero-dna-explosion.jpg"
+        alt="Visualisation 3D d'une double hélice d'ADN se désintégrant en particules lumineuses"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+  </div>
+
+  <!-- Hélice ADN SVG : zone de transition texte/image -->
+  <div class="hero-helix-wrapper">
+    <DnaHelix />
+  </div>
+
+  <!-- Contenu texte -->
+  <div class="hero-content">
+    <h1 class="hero-name" aria-label={`${firstName} ${lastName}`}>
+      <span class="hero-name-line">
+        {firstName.split('').map(l => (
+          <span class="hero-letter" aria-hidden="true">{l}</span>
+        ))}
+      </span>
+      <em class="hero-name-line hero-name-last">
+        {lastName.split('').map(l => (
+          <span class="hero-letter" aria-hidden="true">{l}</span>
+        ))}
+      </em>
+    </h1>
+
+    <p class="hero-subtitle">
+      Étudiant en informatique —<br />
+      passionné par l'intersection du code et du <em class="keyword">vivant</em>
+    </p>
+  </div>
+
+  <!-- Bas de page hero -->
+  <div class="hero-footer">
+    <div class="scroll-hint" aria-hidden="true">
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4L8 20M8 20L3 15M8 20L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="hero-meta">Sherbrooke, QC · 2026</span>
+  </div>
+
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+  }
+
+  /* ── Image background ─────────────────────────────── */
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  /* Masque dégradé : fondu de droite vers la gauche */
+  .hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      var(--bg-primary) 0%,
+      var(--bg-primary) 30%,
+      rgba(10, 14, 13, 0.6) 60%,
+      transparent 100%
+    );
+  }
+
+  .hero-image-parallax {
+    position: absolute;
+    /* légèrement plus grand pour absorber le parallax de 20% */
+    inset: -10% 0;
+    height: 120%;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  /* Sur mobile : image centrée, overlay opaque */
+  @media (max-width: 767px) {
+    .hero-image::after {
+      background: rgba(10, 14, 13, 0.75);
+    }
+  }
+
+  /* Sur desktop : image limitée à la moitié droite */
+  @media (min-width: 768px) {
+    .hero-image {
+      left: 38%;
+    }
+
+    .hero-image::after {
+      background: linear-gradient(
+        to right,
+        var(--bg-primary) 0%,
+        rgba(10, 14, 13, 0.2) 60%,
+        transparent 100%
+      );
+    }
+  }
+
+  /* ── Hélice ────────────────────────────────────────── */
+  .hero-helix-wrapper {
+    display: none;
+    position: absolute;
+    left: 38%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+
+  @media (min-width: 768px) {
+    .hero-helix-wrapper {
+      display: block;
+    }
+  }
+
+  /* ── Contenu texte ─────────────────────────────────── */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: var(--space-8) var(--space-8);
+    max-width: 680px;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .hero-content {
+      padding: var(--space-6) var(--space-4);
+    }
+  }
+
+  /* Nom */
+  .hero-name {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-size: var(--text-hero);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-name-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero-name-last {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  .hero-letter {
+    display: inline-block;
+    /* GSAP animera chaque lettre */
+  }
+
+  /* Sous-titre */
+  .hero-subtitle {
+    font-family: 'Inter Variable', 'Inter', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 42ch;
+  }
+
+  /* "vivant" en Fraunces italic dans le sous-titre Inter */
+  .hero-subtitle .keyword {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-style: italic;
+    color: var(--text-primary);
+    font-size: 1.08em;
+  }
+
+  /* ── Bas de page hero ─────────────────────────────── */
+  .hero-footer {
+    position: absolute;
+    bottom: var(--space-6);
+    left: var(--space-8);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 767px) {
+    .hero-footer {
+      left: var(--space-4);
+      bottom: var(--space-4);
+    }
+  }
+
+  .scroll-hint {
+    animation: scrollBounce 2.4s ease-in-out infinite;
+    color: var(--text-muted);
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(7px); }
+  }
+
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    letter-spacing: 0.06em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-hint { animation: none; }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Effet de séquençage : les lettres apparaissent par paquets de 2-3 */
+  gsap.from('.hero-letter', {
+    opacity: 0,
+    y: 12,
+    duration: 0.12,
+    stagger: {
+      amount: 0.55,
+      from: 'start',
+    },
+    delay: 0.2,
+    ease: 'power2.out',
+    clearProps: 'all',
+  });
+
+  /* Fondu du sous-titre, léger décalage */
+  gsap.from('.hero-subtitle', {
+    opacity: 0,
+    y: 16,
+    duration: 0.6,
+    delay: 0.85,
+    ease: 'power2.out',
+  });
+
+  /* Parallax de l'image au scroll (translateY 20%) */
+  gsap.to('.hero-image-parallax', {
+    y: '18%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
+</script>

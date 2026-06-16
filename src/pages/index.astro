@@ -1,55 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
 ---
 
 <BaseLayout>
   <Nav />
-
   <main>
-    <!-- CP1 : page vide de validation — les sections viennent au CP2+ -->
-    <section class="placeholder-hero">
-      <p class="label">Checkpoint 1 — Setup</p>
-      <h1>Mattheus<br /><em>Germano</em></h1>
-      <p class="subtitle">Lenis actif · Tailwind 4 · Fraunces + Inter + JetBrains Mono chargés</p>
-    </section>
+    <Hero />
+    <!-- Sections à venir : CP3+ -->
   </main>
 </BaseLayout>
-
-<style>
-  .placeholder-hero {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-inline: var(--space-8);
-    gap: var(--space-3);
-  }
-
-  .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-mono);
-    color: var(--accent-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-hero);
-    color: var(--text-primary);
-    letter-spacing: -0.03em;
-    line-height: 0.95;
-  }
-
-  h1 em {
-    font-style: italic;
-  }
-
-  .subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-small);
-    color: var(--text-muted);
-    margin-top: var(--space-2);
-  }
-</style>

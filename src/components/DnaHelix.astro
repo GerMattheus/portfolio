@@ -1,0 +1,110 @@
+---
+// Génération des coordonnées de la double hélice par calcul serveur-side
+const W = 52;
+const CX = W / 2;         // centre horizontal : 26
+const AMP = 19;            // demi-amplitude du sinus
+const PERIOD = 80;         // px pour une révolution complète
+const NUM_PERIODS = 7;     // périodes dessinées (la 7ème assure le seamless)
+const STEP = 3;            // pas entre les points (px)
+const TOTAL_H = PERIOD * NUM_PERIODS; // hauteur SVG totale : 560px
+
+type Pt = { x1: number; x2: number; y: number };
+const pts: Pt[] = [];
+
+for (let y = 0; y <= TOTAL_H; y += STEP) {
+  const a = (2 * Math.PI * y) / PERIOD;
+  pts.push({ x1: CX + AMP * Math.sin(a), x2: CX - AMP * Math.sin(a), y });
+}
+
+const strand1 = pts.map(p => `${p.x1.toFixed(1)},${p.y}`).join(' ');
+const strand2 = pts.map(p => `${p.x2.toFixed(1)},${p.y}`).join(' ');
+
+// Barreaux aux croisements (tous les demi-périodes)
+const rungs: Array<{ x1: number; x2: number; y: number }> = [];
+for (let y = PERIOD / 4; y < TOTAL_H; y += PERIOD / 2) {
+  const a = (2 * Math.PI * y) / PERIOD;
+  rungs.push({ x1: CX + AMP * Math.sin(a), x2: CX - AMP * Math.sin(a), y });
+}
+---
+
+<div class="helix-clip" aria-hidden="true" role="presentation">
+  <div class="helix-scroll">
+    <svg
+      width={W}
+      height={TOTAL_H}
+      viewBox={`0 0 ${W} ${TOTAL_H}`}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- Barreaux (paires de bases) -->
+      {rungs.map(r => (
+        <line
+          x1={r.x1.toFixed(1)} y1={r.y}
+          x2={r.x2.toFixed(1)} y2={r.y}
+          stroke="var(--text-muted)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          opacity="0.45"
+        />
+      ))}
+
+      <!-- Brin 1 : vert fluorescent -->
+      <polyline
+        points={strand1}
+        fill="none"
+        stroke="var(--accent-primary)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.8"
+      />
+
+      <!-- Brin 2 : cyan -->
+      <polyline
+        points={strand2}
+        fill="none"
+        stroke="var(--accent-cool)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.8"
+      />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .helix-clip {
+    width: 52px;
+    height: 480px;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 12%,
+      black 88%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 12%,
+      black 88%,
+      transparent 100%
+    );
+  }
+
+  .helix-scroll {
+    animation: helixScroll 60s linear infinite;
+  }
+
+  /* translateY(-80px) = une révolution = une période */
+  @keyframes helixScroll {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-80px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .helix-scroll { animation: none; }
+  }
+</style>
