@@ -247,38 +247,24 @@ const lastName  = "Germano";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* Effet de séquençage : les lettres apparaissent par paquets de 2-3 */
-  gsap.from('.hero-letter', {
-    opacity: 0,
-    y: 12,
-    duration: 0.12,
-    stagger: {
-      amount: 0.55,
-      from: 'start',
-    },
-    delay: 0.2,
-    ease: 'power2.out',
-    clearProps: 'all',
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Fondu du sous-titre, léger décalage */
-  gsap.from('.hero-subtitle', {
-    opacity: 0,
-    y: 16,
-    duration: 0.6,
-    delay: 0.85,
-    ease: 'power2.out',
-  });
+  if (!reduced) {
+    gsap.from('.hero-letter', {
+      opacity: 0, y: 12, duration: 0.12,
+      stagger: { amount: 0.55, from: 'start' },
+      delay: 0.2, ease: 'power2.out', clearProps: 'all',
+    });
 
-  /* Parallax de l'image au scroll (translateY 20%) */
-  gsap.to('.hero-image-parallax', {
-    y: '18%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.hero-subtitle', {
+      opacity: 0, y: 16, duration: 0.6, delay: 0.85, ease: 'power2.out',
+    });
+
+    gsap.to('.hero-image-parallax', {
+      y: '18%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 </script>

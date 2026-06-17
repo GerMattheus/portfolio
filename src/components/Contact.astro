@@ -247,33 +247,32 @@ const links = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.contact-label, .contact-title', {
-    opacity: 0, y: 24, duration: 0.7, stagger: 0.12,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.contact-header', start: 'top 82%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.contact-email', {
-    opacity: 0, y: 16, duration: 0.6,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.contact-body', start: 'top 85%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.contact-label, .contact-title', {
+      opacity: 0, y: 24, duration: 0.7, stagger: 0.12,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.contact-header', start: 'top 82%', once: true },
+    });
 
-  gsap.from('.contact-details', {
-    opacity: 0, y: 12, duration: 0.5, delay: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.contact-body', start: 'top 85%', once: true },
-  });
+    gsap.from('.contact-email', {
+      opacity: 0, y: 16, duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.contact-body', start: 'top 85%', once: true },
+    });
 
-  /* Très léger parallax sur l'image de fond */
-  gsap.to('.contact-bg img', {
-    y: '12%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.contact',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.contact-details', {
+      opacity: 0, y: 12, duration: 0.5, delay: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.contact-body', start: 'top 85%', once: true },
+    });
+
+    gsap.to('.contact-bg img', {
+      y: '12%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.contact', start: 'top bottom', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 </script>

@@ -10,7 +10,6 @@ interface Project {
   githubUrl?: string;
   liveUrl?: string;
   codeNote?: string;
-  layout: 'showcase' | 'right' | 'left';
 }
 
 const projects: Project[] = [
@@ -24,7 +23,6 @@ const projects: Project[] = [
     status: "En développement actif",
     githubUrl: "https://github.com/GerMattheus/lifequest-rpg",
     liveUrl: "https://germanolifequest.netlify.app/",
-    layout: "showcase",
   },
   {
     index: "02",
@@ -35,7 +33,6 @@ const projects: Project[] = [
     context: "Projet personnel",
     status: "En développement actif",
     githubUrl: "https://github.com/GerMattheus/Dotaro",
-    layout: "right",
   },
   {
     index: "03",
@@ -46,14 +43,13 @@ const projects: Project[] = [
     context: "Cours IFT320 — Systèmes d'exploitation · Université de Sherbrooke",
     status: "Terminé · 2025",
     codeNote: "// code disponible sur demande",
-    layout: "left",
   },
 ];
 ---
 
 <section class="projects" id="projects" aria-labelledby="projects-heading">
 
-  <!-- Bandeau intro rouge : 05-projects-cells-red.jpg -->
+  <!-- Bandeau intro rouge -->
   <div class="projects-banner" aria-hidden="true">
     <div class="projects-banner-img">
       <img
@@ -71,11 +67,11 @@ const projects: Project[] = [
     </div>
   </div>
 
-  <!-- Grille des projets -->
+  <!-- Liste des projets -->
   <div class="projects-list">
     {projects.map(p => (
       <article
-        class={`project-item project-item--${p.layout}`}
+        class="project-item"
         data-index={p.index}
         data-title={p.title}
         data-subtitle={p.subtitle}
@@ -90,38 +86,30 @@ const projects: Project[] = [
         tabindex="0"
         aria-label={`Voir le projet ${p.title}`}
       >
-        <!-- Zone visuelle -->
-        <div class="project-visual" aria-hidden="true">
-          <span class="project-visual-index">{p.index}.</span>
-        </div>
+        <span class="project-index" aria-hidden="true">{p.index}.</span>
 
-        <!-- Infos -->
-        <div class="project-info">
-          <span class="project-index" aria-hidden="true">{p.index}.</span>
-          <h3 class="project-title">{p.title}</h3>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">{p.title}</h3>
+            <span class="project-status">{p.status}</span>
+          </div>
           <p class="project-subtitle"><em>{p.subtitle}</em></p>
-
           <div class="project-stack">
-            {p.stack.slice(0, 4).map(tag => (
+            {p.stack.slice(0, 5).map(tag => (
               <span class="stack-tag">{tag}</span>
             ))}
-            {p.stack.length > 4 && (
-              <span class="stack-tag stack-tag--more">+{p.stack.length - 4}</span>
+            {p.stack.length > 5 && (
+              <span class="stack-tag stack-tag--more">+{p.stack.length - 5}</span>
             )}
           </div>
-
-          <div class="project-footer">
-            <span class="project-status">{p.status}</span>
-            <button class="project-cta" aria-label={`Voir les détails de ${p.title}`}>
-              Voir le projet →
-            </button>
-          </div>
         </div>
+
+        <span class="project-arrow" aria-hidden="true">→</span>
       </article>
     ))}
   </div>
 
-  <!-- Modal projet — dialog natif -->
+  <!-- Modal -->
   <dialog class="project-modal" id="project-modal" aria-modal="true">
     <div class="modal-inner">
       <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
@@ -148,7 +136,6 @@ const projects: Project[] = [
 </section>
 
 <style>
-  /* ── Section ──────────────────────────────────────── */
   .projects {
     background-color: var(--bg-primary);
   }
@@ -156,7 +143,7 @@ const projects: Project[] = [
   /* ── Bandeau intro ───────────────────────────────── */
   .projects-banner {
     position: relative;
-    height: 45vh;
+    height: 42vh;
     overflow: hidden;
   }
 
@@ -173,14 +160,13 @@ const projects: Project[] = [
     object-position: center;
   }
 
-  /* Overlay sombre bas pour raccord avec la liste */
   .projects-banner-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.3) 0%,
-      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.1) 50%,
       #000000 100%
     );
     z-index: 1;
@@ -210,44 +196,39 @@ const projects: Project[] = [
   }
 
   @media (max-width: 767px) {
-    .projects-banner {
-      height: 35vh;
-    }
-    .projects-banner-text {
-      left: var(--space-4);
-      bottom: var(--space-4);
-    }
+    .projects-banner { height: 32vh; }
+    .projects-banner-text { left: var(--space-4); bottom: var(--space-4); }
   }
 
-  /* ── Liste des projets ───────────────────────────── */
+  /* ── Liste ───────────────────────────────────────── */
   .projects-list {
-    padding: var(--space-12) 0 var(--space-16);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    padding-bottom: var(--space-12);
   }
 
-  @media (max-width: 767px) {
-    .projects-list {
-      padding: var(--space-8) 0 var(--space-12);
-      gap: var(--space-3);
-    }
-  }
-
-  /* ── Carte projet ─────────────────────────────────── */
+  /* ── Carte projet — rangée compacte ─────────────── */
   .project-item {
     display: grid;
-    align-items: stretch;
-    cursor: pointer;
+    grid-template-columns: 3.5rem 1fr 1.5rem;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-8);
     border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-    transition: background var(--duration-micro) var(--ease-out);
+    border-left: 2px solid transparent;
+    cursor: pointer;
+    transition:
+      background var(--duration-micro) var(--ease-out),
+      border-left-color var(--duration-base) var(--ease-out);
     outline: none;
+  }
+
+  .project-item:last-child {
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .project-item:hover,
   .project-item:focus-visible {
     background: var(--bg-secondary);
+    border-left-color: var(--accent-primary);
   }
 
   .project-item:focus-visible {
@@ -255,110 +236,54 @@ const projects: Project[] = [
     outline-offset: -2px;
   }
 
-  /* Showcase : plein largeur, visuel gauche 55% / info droite 45% */
-  .project-item--showcase {
-    grid-template-columns: 55fr 45fr;
-    min-height: 380px;
-  }
-
-  /* Right : info gauche 42% / visuel droite 58% */
-  .project-item--right {
-    grid-template-columns: 42fr 58fr;
-    min-height: 320px;
-  }
-
-  .project-item--right .project-visual {
-    order: 2;
-  }
-
-  .project-item--right .project-info {
-    order: 1;
-  }
-
-  /* Left : visuel gauche 58% / info droite 42% */
-  .project-item--left {
-    grid-template-columns: 58fr 42fr;
-    min-height: 320px;
-  }
-
-  /* Mobile : tout en pleine largeur, empilés */
   @media (max-width: 767px) {
-    .project-item--showcase,
-    .project-item--right,
-    .project-item--left {
-      grid-template-columns: 1fr;
-      min-height: auto;
-    }
-
-    .project-item--right .project-visual,
-    .project-item--right .project-info {
-      order: unset;
-    }
-
-    .project-visual {
-      min-height: 160px;
-    }
-  }
-
-  /* ── Zone visuelle ───────────────────────────────── */
-  .project-visual {
-    position: relative;
-    background: var(--bg-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-right: 1px solid var(--border-subtle);
-  }
-
-  .project-item--right .project-visual {
-    border-right: none;
-    border-left: 1px solid var(--border-subtle);
-  }
-
-  /* Numéro en gros derrière */
-  .project-visual-index {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(5rem, 12vw, 10rem);
-    color: var(--border);
-    line-height: 1;
-    user-select: none;
-    transition: color var(--duration-base) var(--ease-out);
-  }
-
-  .project-item:hover .project-visual-index {
-    color: var(--border-subtle);
-  }
-
-  /* ── Infos projet ────────────────────────────────── */
-  .project-info {
-    padding: var(--space-8) var(--space-8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--space-3);
-  }
-
-  @media (max-width: 767px) {
-    .project-info {
+    .project-item {
+      grid-template-columns: 2.5rem 1fr 1rem;
+      gap: var(--space-3);
       padding: var(--space-5) var(--space-4);
     }
   }
 
+  /* Numéro */
   .project-index {
     font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-mono);
+    font-size: 0.75rem;
     color: var(--text-muted);
     letter-spacing: 0.08em;
+    align-self: start;
+    padding-top: 4px;
+  }
+
+  /* Corps */
+  .project-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .project-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
 
   .project-title {
     font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-h2);
+    font-size: clamp(1.25rem, 2.5vw, var(--text-h3));
     color: var(--text-primary);
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: 400;
+  }
+
+  .project-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .project-subtitle {
@@ -366,14 +291,15 @@ const projects: Project[] = [
     font-style: italic;
     font-size: var(--text-small);
     color: var(--text-secondary);
-    line-height: 1.45;
+    line-height: 1.4;
   }
 
   /* Stack tags */
   .project-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-1) var(--space-2);
+    gap: 4px var(--space-2);
+    margin-top: var(--space-1);
   }
 
   .stack-tag {
@@ -381,44 +307,25 @@ const projects: Project[] = [
     font-size: var(--text-mono);
     color: var(--text-muted);
     border: 1px solid var(--border);
-    padding: 3px 10px;
+    padding: 2px 8px;
     line-height: 1.6;
   }
 
   .stack-tag--more {
-    color: var(--text-muted);
     border-style: dashed;
   }
 
-  /* Pied de carte */
-  .project-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-top: var(--space-1);
-  }
-
-  .project-status {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-mono);
+  /* Flèche */
+  .project-arrow {
+    font-size: 1rem;
     color: var(--text-muted);
+    transition: color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-out);
+    justify-self: end;
   }
 
-  .project-cta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-mono);
+  .project-item:hover .project-arrow {
     color: var(--accent-cool);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: color var(--duration-micro) var(--ease-out);
-    pointer-events: none; /* le click est sur l'article */
-  }
-
-  .project-item:hover .project-cta {
-    color: var(--accent-primary);
+    transform: translateX(3px);
   }
 
   /* ── Modal ───────────────────────────────────────── */
@@ -447,9 +354,7 @@ const projects: Project[] = [
   }
 
   @media (max-width: 640px) {
-    .modal-inner {
-      padding: var(--space-5) var(--space-4);
-    }
+    .modal-inner { padding: var(--space-5) var(--space-4); }
   }
 
   .modal-close {
@@ -530,9 +435,7 @@ const projects: Project[] = [
     color: var(--text-muted);
   }
 
-  .modal-status {
-    color: var(--accent-primary);
-  }
+  .modal-status { color: var(--accent-primary); }
 
   .modal-links {
     display: flex;
@@ -571,38 +474,34 @@ const projects: Project[] = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Scroll reveals ──────────────────────────────── */
-  gsap.from('.projects-heading, .projects-count', {
-    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.projects-banner', start: 'top 80%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.project-item', {
-    opacity: 0, y: 28, duration: 0.6, stagger: 0.18,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.projects-list', start: 'top 82%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.projects-heading, .projects-count', {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.projects-banner', start: 'top 80%', once: true },
+    });
 
-  /* Parallax léger sur le bandeau */
-  gsap.to('.projects-banner-img', {
-    y: '15%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.projects-banner',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.project-item', {
+      opacity: 0, y: 20, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+      scrollTrigger: { trigger: '.projects-list', start: 'top 82%', once: true },
+    });
+
+    gsap.to('.projects-banner-img', {
+      y: '15%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.projects-banner',
+        start: 'top bottom', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 
   /* ── Modal ───────────────────────────────────────── */
   const dialog = document.getElementById('project-modal') as HTMLDialogElement;
   const closeBtn = document.getElementById('modal-close') as HTMLButtonElement;
-
   const $id = (id: string) => document.getElementById(id) as HTMLElement;
 
-  function openModal(card: HTMLElement) {
+  function openModal(card: HTMLElement): void {
     const stack = card.dataset.stack?.split('|') ?? [];
     const github = card.dataset.github ?? '';
     const live = card.dataset.live ?? '';
@@ -615,47 +514,29 @@ const projects: Project[] = [
     $id('modal-context').textContent  = card.dataset.context ?? '';
     $id('modal-status').textContent   = card.dataset.status ?? '';
 
-    /* Tags stack */
-    const stackEl = $id('modal-stack');
-    stackEl.innerHTML = stack
+    $id('modal-stack').innerHTML = stack
       .map(t => `<span class="stack-tag">${t}</span>`)
       .join('');
 
-    /* Liens */
     const linksEl = $id('modal-links');
     linksEl.innerHTML = '';
-
-    if (github) {
-      linksEl.innerHTML += `<a class="modal-link" href="${github}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>`;
-    }
-    if (live) {
-      linksEl.innerHTML += `<a class="modal-link" href="${live}" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>`;
-    }
-    if (codeNote) {
-      linksEl.innerHTML += `<span class="modal-code-note">${codeNote}</span>`;
-    }
+    if (github) linksEl.innerHTML += `<a class="modal-link" href="${github}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>`;
+    if (live)   linksEl.innerHTML += `<a class="modal-link" href="${live}" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>`;
+    if (codeNote) linksEl.innerHTML += `<span class="modal-code-note">${codeNote}</span>`;
 
     dialog.showModal();
-    gsap.from('.modal-inner', {
-      opacity: 0, y: 16, duration: 0.35, ease: 'power2.out',
-    });
+    if (!reduced) {
+      gsap.from('.modal-inner', { opacity: 0, y: 14, duration: 0.3, ease: 'power2.out' });
+    }
   }
 
-  /* Clic sur une carte */
   document.querySelectorAll<HTMLElement>('.project-item').forEach(card => {
     card.addEventListener('click', () => openModal(card));
     card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openModal(card);
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card); }
     });
   });
 
-  /* Fermeture */
   closeBtn.addEventListener('click', () => dialog.close());
-
-  dialog.addEventListener('click', e => {
-    if (e.target === dialog) dialog.close();
-  });
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 </script>

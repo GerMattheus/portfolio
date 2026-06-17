@@ -251,26 +251,26 @@ const entries = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.formation-label, .formation-title', {
-    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.formation-content', start: 'top 82%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.formation-card', {
-    opacity: 0, y: 24, duration: 0.55, stagger: 0.15,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.formation-list', start: 'top 80%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.formation-label, .formation-title', {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.formation-content', start: 'top 82%', once: true },
+    });
 
-  gsap.to('.formation-image img', {
-    y: '10%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.formation',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.formation-card', {
+      opacity: 0, y: 24, duration: 0.55, stagger: 0.15,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.formation-list', start: 'top 80%', once: true },
+    });
+
+    gsap.to('.formation-image img', {
+      y: '10%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.formation', start: 'top bottom', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 </script>

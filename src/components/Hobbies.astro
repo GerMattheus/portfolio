@@ -1,16 +1,48 @@
 ---
-const categories = [
+interface HobbyItem {
+  label: string;
+  links?: { text: string; href: string }[];
+}
+
+interface Category {
+  keyword: string;
+  items: HobbyItem[];
+}
+
+const categories: Category[] = [
   {
     keyword: "Sport",
-    items: ["Basketball", "Soccer", "Échecs"],
+    items: [
+      { label: "Basketball" },
+      { label: "Soccer" },
+      { label: "Échecs", links: [
+        { text: "Chess.com", href: "https://www.chess.com" },
+        { text: "Lichess", href: "https://lichess.org" },
+      ]},
+    ],
   },
   {
     keyword: "Lecture",
-    items: ["Romans d'aventure", "Horreur", "Policier", "Mystère", "Mangas"],
+    items: [
+      { label: "Romans d'aventure" },
+      { label: "Horreur" },
+      { label: "Policier" },
+      { label: "Mystère" },
+      { label: "Mangas" },
+    ],
   },
   {
     keyword: "Cinéma",
-    items: ["Science-fiction", "Animation japonaise", "Action", "Mystère", "Aventure"],
+    items: [
+      { label: "Science-fiction" },
+      { label: "Animation japonaise" },
+      { label: "Action" },
+      { label: "Mystère" },
+      { label: "Aventure" },
+      { label: "Letterboxd", links: [
+        { text: "Letterboxd ↗", href: "https://letterboxd.com" },
+      ]},
+    ],
   },
 ];
 ---
@@ -31,7 +63,25 @@ const categories = [
           <h3 class="hobby-keyword">{cat.keyword}</h3>
           <ul class="hobby-list" role="list">
             {cat.items.map(item => (
-              <li class="hobby-item">{item}</li>
+              <li class="hobby-item">
+                {item.links ? (
+                  <span class="hobby-item-links">
+                    <span class="hobby-item-label">{item.label}</span>
+                    {item.links.map(link => (
+                      <a
+                        class="hobby-link"
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.text} ↗
+                      </a>
+                    ))}
+                  </span>
+                ) : (
+                  item.label
+                )}
+              </li>
             ))}
           </ul>
         </div>
@@ -70,18 +120,13 @@ const categories = [
   }
 
   /* ── En-tête ─────────────────────────────────────── */
-  .hobbies-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
   .hobbies-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    margin-bottom: var(--space-2);
   }
 
   .hobbies-title {
@@ -97,16 +142,12 @@ const categories = [
   .hobbies-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-2);
     border-top: 1px solid var(--border-subtle);
     padding-top: var(--space-8);
   }
 
   @media (max-width: 767px) {
-    .hobbies-grid {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
+    .hobbies-grid { grid-template-columns: 1fr; }
   }
 
   /* ── Colonne ─────────────────────────────────────── */
@@ -118,9 +159,7 @@ const categories = [
     gap: var(--space-3);
   }
 
-  .hobby-col:last-child {
-    border-right: none;
-  }
+  .hobby-col:last-child { border-right: none; }
 
   @media (max-width: 767px) {
     .hobby-col {
@@ -128,10 +167,7 @@ const categories = [
       border-bottom: 1px solid var(--border-subtle);
       padding: var(--space-5) 0;
     }
-
-    .hobby-col:last-child {
-      border-bottom: none;
-    }
+    .hobby-col:last-child { border-bottom: none; }
   }
 
   .hobby-index {
@@ -162,7 +198,7 @@ const categories = [
   .hobby-item {
     font-size: var(--text-small);
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
     padding-left: var(--space-3);
     position: relative;
   }
@@ -173,6 +209,40 @@ const categories = [
     left: 0;
     color: var(--text-muted);
   }
+
+  /* Items avec liens — layout flex */
+  .hobby-item-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .hobby-item-label {
+    color: var(--text-secondary);
+  }
+
+  /* Liens externes */
+  .hobby-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 1px 7px;
+    transition: color var(--duration-micro) var(--ease-out), border-color var(--duration-micro) var(--ease-out);
+    line-height: 1.7;
+  }
+
+  .hobby-link:hover {
+    color: var(--accent-cool);
+    border-color: var(--accent-cool);
+  }
+
+  .hobby-link:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
 </style>
 
 <script>
@@ -181,15 +251,17 @@ const categories = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.hobbies-label, .hobbies-title', {
-    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.hobbies-header', start: 'top 82%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.hobby-col', {
-    opacity: 0, y: 24, duration: 0.55, stagger: 0.15,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.hobbies-grid', start: 'top 80%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.hobbies-label, .hobbies-title', {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.hobbies-header', start: 'top 82%', once: true },
+    });
+
+    gsap.from('.hobby-col', {
+      opacity: 0, y: 24, duration: 0.55, stagger: 0.15, ease: 'power2.out',
+      scrollTrigger: { trigger: '.hobbies-grid', start: 'top 80%', once: true },
+    });
+  }
 </script>

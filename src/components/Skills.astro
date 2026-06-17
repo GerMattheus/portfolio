@@ -237,34 +237,34 @@ const methodological = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.skills-label, .skills-title', {
-    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.skills-content', start: 'top 82%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.skill-tech', {
-    opacity: 0, y: 12, duration: 0.5,
-    stagger: { amount: 0.5, from: 'start' },
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.technical', start: 'top 80%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.skills-label, .skills-title', {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.skills-content', start: 'top 82%', once: true },
+    });
 
-  gsap.from('.skill-method, .skill-separator', {
-    opacity: 0, duration: 0.5,
-    stagger: { amount: 0.4, from: 'start' },
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.methodological', start: 'top 80%', once: true },
-  });
+    gsap.from('.skill-tech', {
+      opacity: 0, y: 12, duration: 0.5,
+      stagger: { amount: 0.5, from: 'start' },
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.technical', start: 'top 80%', once: true },
+    });
 
-  gsap.to('.skills-image img', {
-    y: '12%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.skills',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.skill-method, .skill-separator', {
+      opacity: 0, duration: 0.5,
+      stagger: { amount: 0.4, from: 'start' },
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.methodological', start: 'top 80%', once: true },
+    });
+
+    gsap.to('.skills-image img', {
+      y: '12%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.skills', start: 'top bottom', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 </script>

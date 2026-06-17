@@ -182,27 +182,26 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.about-label, .about-lede', {
-    opacity: 0, y: 20, duration: 0.65, stagger: 0.1,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.about-content', start: 'top 82%', once: true },
-  });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.from('.about-body p, .about-pullquote', {
-    opacity: 0, y: 16, duration: 0.6, stagger: 0.12,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.about-body', start: 'top 82%', once: true },
-  });
+  if (!reduced) {
+    gsap.from('.about-label, .about-lede', {
+      opacity: 0, y: 20, duration: 0.65, stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.about-content', start: 'top 82%', once: true },
+    });
 
-  /* Parallax léger sur l'image */
-  gsap.to('.about-image img', {
-    y: '12%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.about',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
+    gsap.from('.about-body p, .about-pullquote', {
+      opacity: 0, y: 16, duration: 0.6, stagger: 0.12,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: '.about-body', start: 'top 82%', once: true },
+    });
+
+    gsap.to('.about-image img', {
+      y: '12%', ease: 'none',
+      scrollTrigger: {
+        trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true,
+      },
+    });
+  }
 </script>
