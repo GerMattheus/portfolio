@@ -1,0 +1,195 @@
+---
+const categories = [
+  {
+    keyword: "Sport",
+    items: ["Basketball", "Soccer", "Échecs"],
+  },
+  {
+    keyword: "Lecture",
+    items: ["Romans d'aventure", "Horreur", "Policier", "Mystère", "Mangas"],
+  },
+  {
+    keyword: "Cinéma",
+    items: ["Science-fiction", "Animation japonaise", "Action", "Mystère", "Aventure"],
+  },
+];
+---
+
+<section class="hobbies" id="hobbies" aria-labelledby="hobbies-heading">
+
+  <div class="hobbies-inner">
+
+    <div class="hobbies-header">
+      <p class="hobbies-label" aria-hidden="true">05 · Intérêts</p>
+      <h2 class="hobbies-title" id="hobbies-heading">En dehors du code</h2>
+    </div>
+
+    <div class="hobbies-grid">
+      {categories.map((cat, i) => (
+        <div class="hobby-col">
+          <span class="hobby-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}.</span>
+          <h3 class="hobby-keyword">{cat.keyword}</h3>
+          <ul class="hobby-list" role="list">
+            {cat.items.map(item => (
+              <li class="hobby-item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .hobbies {
+    background-color: var(--bg-primary);
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  @media (max-width: 767px) {
+    .hobbies { padding-block: var(--space-12); }
+  }
+
+  .hobbies-inner {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  @media (max-width: 767px) {
+    .hobbies-inner {
+      padding-inline: var(--space-4);
+      gap: var(--space-8);
+    }
+  }
+
+  /* ── En-tête ─────────────────────────────────────── */
+  .hobbies-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .hobbies-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--accent-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hobbies-title {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-size: var(--text-h1);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  /* ── Grille 3 colonnes ───────────────────────────── */
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-8);
+  }
+
+  @media (max-width: 767px) {
+    .hobbies-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  /* ── Colonne ─────────────────────────────────────── */
+  .hobby-col {
+    padding: var(--space-6);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .hobby-col:last-child {
+    border-right: none;
+  }
+
+  @media (max-width: 767px) {
+    .hobby-col {
+      border-right: none;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-5) 0;
+    }
+
+    .hobby-col:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .hobby-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .hobby-keyword {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-size: var(--text-h2);
+    color: var(--text-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  /* ── Liste ───────────────────────────────────────── */
+  .hobby-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-1);
+  }
+
+  .hobby-item {
+    font-size: var(--text-small);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-left: var(--space-3);
+    position: relative;
+  }
+
+  .hobby-item::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.hobbies-label, .hobbies-title', {
+    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.hobbies-header', start: 'top 82%', once: true },
+  });
+
+  gsap.from('.hobby-col', {
+    opacity: 0, y: 24, duration: 0.55, stagger: 0.15,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.hobbies-grid', start: 'top 80%', once: true },
+  });
+</script>
