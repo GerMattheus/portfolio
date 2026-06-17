@@ -1,0 +1,105 @@
+---
+---
+
+<section class="divider" aria-hidden="true">
+  <div class="divider-image-wrap">
+    <img
+      src="/images/02-signature-cells-fluorescent.jpg"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <blockquote class="divider-quote">
+    <em>« Quatre lettres suffisent à écrire un être humain. »</em>
+  </blockquote>
+</section>
+
+<style>
+  .divider {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .divider-image-wrap {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .divider-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Citation en bas à droite */
+  .divider-quote {
+    position: absolute;
+    bottom: var(--space-8);
+    right: var(--space-8);
+    z-index: 2;
+    max-width: 32ch;
+    text-align: right;
+    padding: var(--space-3) var(--space-4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(10, 14, 13, 0.4);
+    border-radius: 2px;
+  }
+
+  .divider-quote em {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 767px) {
+    .divider-quote {
+      right: var(--space-4);
+      bottom: var(--space-4);
+      left: var(--space-4);
+      text-align: left;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Zoom out de l'image pendant le scroll sur la section */
+  gsap.fromTo('.divider-image-wrap',
+    { scale: 1.05 },
+    {
+      scale: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.divider',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    }
+  );
+
+  /* Apparition de la citation */
+  gsap.from('.divider-quote', {
+    opacity: 0,
+    y: 12,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.divider',
+      start: 'top 60%',
+      once: true,
+    },
+  });
+</script>
