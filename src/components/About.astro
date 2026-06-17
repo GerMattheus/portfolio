@@ -3,88 +3,64 @@
 
 <section class="about" id="about" aria-labelledby="about-heading">
 
-  <div class="about-container">
+  <!-- Image droite avec masque dégradé — Modèle A -->
+  <div class="about-image" aria-hidden="true">
+    <img
+      src="/images/03-about-cells-blue.jpg"
+      alt="Cellules fluorescentes bleu et blanc au microscope"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
 
-    <!-- Étiquette de section -->
+  <!-- Texte gauche -->
+  <div class="about-content">
+
     <p class="about-label" aria-hidden="true">01 · À propos</p>
 
-    <div class="about-grid">
+    <p class="about-lede" id="about-heading">
+      J'ai passé deux ans à apprendre comment réparer le corps humain
+      à Kinshasa. Aujourd'hui, à Sherbrooke, j'apprends à parler aux
+      machines. Entre les deux, je cherche un langage commun.
+    </p>
 
-      <!-- Colonne texte -->
-      <div class="about-text">
+    <div class="about-body">
+      <p>
+        J'ai commencé mes études en médecine à l'Université de Kinshasa.
+        J'aimais le milieu hospitalier, j'aimais l'idée de comprendre le
+        vivant de l'intérieur. Mais j'avais aussi cette autre fascination,
+        plus discrète, pour le code — pour ces systèmes invisibles qui
+        font tourner le monde moderne.
+      </p>
 
-        <!-- Lede -->
-        <p class="about-lede" id="about-heading">
-          J'ai passé deux ans à apprendre comment réparer le corps humain
-          à Kinshasa. Aujourd'hui, à Sherbrooke, j'apprends à parler aux
-          machines. Entre les deux, je cherche un langage commun.
-        </p>
+      <p>
+        Quand l'occasion s'est présentée de venir étudier au Canada, j'ai
+        fait un choix qui m'a longtemps semblé impossible à faire :
+        laisser la médecine. À l'Université de Sherbrooke, j'ai commencé
+        un baccalauréat en informatique.
+      </p>
 
-        <!-- Corps -->
-        <div class="about-body">
-          <p>
-            J'ai commencé mes études en médecine à l'Université de Kinshasa.
-            J'aimais le milieu hospitalier, j'aimais l'idée de comprendre le
-            vivant de l'intérieur. Mais j'avais aussi cette autre fascination,
-            plus discrète, pour le code — pour ces systèmes invisibles qui
-            font tourner le monde moderne.
-          </p>
+      <blockquote class="about-pullquote">
+        Le génome humain est un programme qu'on apprend à lire.
+      </blockquote>
 
-          <p>
-            Quand l'occasion s'est présentée de venir étudier au Canada, j'ai
-            fait un choix qui m'a longtemps semblé impossible à faire :
-            laisser la médecine. À l'Université de Sherbrooke, j'ai commencé
-            un baccalauréat en informatique.
-          </p>
+      <p>
+        Ce que j'ai découvert en chemin, c'est que ces deux mondes ne
+        sont pas si éloignés. La bio-informatique, et plus précisément
+        l'analyse de données génomiques, c'est exactement le pont que je
+        cherchais. Le génome humain est un programme qu'on apprend à lire.
+        Les mutations sont des bugs. Les protéines sont des fonctions. Et
+        quand on commence à voir le vivant comme un système informationnel,
+        beaucoup de choses prennent sens.
+      </p>
 
-          <!-- Citation extraite du texte, mise en évidence -->
-          <blockquote class="about-pullquote">
-            Le génome humain est un programme qu'on apprend à lire.
-          </blockquote>
-
-          <p>
-            Ce que j'ai découvert en chemin, c'est que ces deux mondes ne
-            sont pas si éloignés. La bio-informatique, et plus précisément
-            l'analyse de données génomiques, c'est exactement le pont que je
-            cherchais. Le génome humain est un programme qu'on apprend à lire.
-            Les mutations sont des bugs. Les protéines sont des fonctions. Et
-            quand on commence à voir le vivant comme un système informationnel,
-            beaucoup de choses prennent sens.
-          </p>
-
-          <p>
-            Je suis encore en début de parcours. J'apprends, je code, je
-            casse, je recommence. Mais je sais où je veux aller : à
-            l'intersection du code et du soin, là où les outils numériques
-            aident vraiment à comprendre le vivant.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Colonne image -->
-      <div class="about-image-col" aria-hidden="true">
-        <img
-          src="/images/03-about-cells-blue.jpg"
-          alt="Cellules fluorescentes bleu et blanc au microscope"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
+      <p>
+        Je suis encore en début de parcours. J'apprends, je code, je
+        casse, je recommence. Mais je sais où je veux aller : à
+        l'intersection du code et du soin, là où les outils numériques
+        aident vraiment à comprendre le vivant.
+      </p>
     </div>
-
-    <!-- Vignette microscopie -->
-    <figure class="about-vignette">
-      <img
-        src="/images/06-microscopy-authentic.jpg"
-        alt="Microscopie optique authentique — cellules végétales, tons gris et lavande"
-        loading="lazy"
-        decoding="async"
-        style="filter: saturate(0.7);"
-      />
-      <figcaption>Microscopie optique · cellules végétales</figcaption>
-    </figure>
 
   </div>
 
@@ -92,54 +68,82 @@
 
 <style>
   .about {
+    position: relative;
     background-color: var(--bg-primary);
     padding-block: var(--space-16);
-  }
-
-  .about-container {
-    max-width: var(--container-max);
-    margin-inline: auto;
-    padding-inline: var(--space-8);
+    overflow: hidden;
   }
 
   @media (max-width: 767px) {
-    .about {
-      padding-block: var(--space-12);
+    .about { padding-block: var(--space-12); }
+  }
+
+  /* ── Image droite (Modèle A) ─────────────────────── */
+  .about-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 56%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Fondu de gauche (bg-primary) vers la droite (transparent) */
+  .about-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      var(--bg-primary) 0%,
+      rgba(0, 0, 0, 0.5) 45%,
+      transparent 75%
+    );
+    z-index: 1;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Mobile : image passe en fond plein avec overlay sombre */
+  @media (max-width: 767px) {
+    .about-image {
+      width: 100%;
     }
-    .about-container {
+
+    .about-image::after {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  /* ── Texte gauche ────────────────────────────────── */
+  .about-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    padding-inline: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 767px) {
+    .about-content {
+      max-width: 100%;
       padding-inline: var(--space-4);
     }
   }
 
-  /* Étiquette */
   .about-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-6);
-  }
-
-  /* Grille 60/40 */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: var(--space-8);
-    align-items: start;
-  }
-
-  @media (max-width: 767px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Texte */
-  .about-text {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
   }
 
   .about-lede {
@@ -147,80 +151,28 @@
     font-size: var(--text-h3);
     line-height: 1.4;
     color: var(--text-primary);
-    max-width: 58ch;
   }
 
   .about-body {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    max-width: 62ch;
+    gap: var(--space-4);
   }
 
   .about-body p {
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.72;
+    max-width: 58ch;
   }
 
-  /* Citation en marge */
   .about-pullquote {
     border-left: 2px solid var(--accent-primary);
     padding-left: var(--space-3);
-    margin-block: var(--space-1);
     font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-size: clamp(1.05rem, 2vw, 1.28rem);
     font-style: italic;
     color: var(--text-primary);
     line-height: 1.45;
-  }
-
-  /* Image colonne */
-  .about-image-col {
-    position: sticky;
-    top: var(--space-8);
-    border-radius: 4px;
-    overflow: hidden;
-    aspect-ratio: 3 / 4;
-  }
-
-  .about-image-col img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  @media (max-width: 767px) {
-    .about-image-col {
-      position: static;
-      order: -1;
-      aspect-ratio: 16 / 9;
-      border-radius: 4px;
-    }
-  }
-
-  /* Vignette microscopie */
-  .about-vignette {
-    margin-top: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    max-width: 200px;
-  }
-
-  .about-vignette img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 2px;
-  }
-
-  .about-vignette figcaption {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: var(--text-mono);
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
   }
 </style>
 
@@ -230,49 +182,27 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const reveal = (selector: string, delay: number = 0) => {
-    gsap.from(selector, {
-      opacity: 0,
-      y: 20,
-      duration: 0.7,
-      delay,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: selector,
-        start: 'top 85%',
-        once: true,
-      },
-    });
-  };
-
-  reveal('.about-label');
-  reveal('.about-lede', 0.05);
-  reveal('.about-pullquote');
-  reveal('.about-vignette');
-
-  /* Paragraphes en cascade */
-  gsap.from('.about-body p', {
-    opacity: 0,
-    y: 16,
-    duration: 0.6,
-    stagger: 0.12,
+  gsap.from('.about-label, .about-lede', {
+    opacity: 0, y: 20, duration: 0.65, stagger: 0.1,
     ease: 'power2.out',
-    scrollTrigger: {
-      trigger: '.about-body',
-      start: 'top 82%',
-      once: true,
-    },
+    scrollTrigger: { trigger: '.about-content', start: 'top 82%', once: true },
   });
 
-  /* Image : révélation avec léger zoom out */
-  gsap.from('.about-image-col img', {
-    scale: 1.06,
-    duration: 1.0,
+  gsap.from('.about-body p, .about-pullquote', {
+    opacity: 0, y: 16, duration: 0.6, stagger: 0.12,
     ease: 'power2.out',
+    scrollTrigger: { trigger: '.about-body', start: 'top 82%', once: true },
+  });
+
+  /* Parallax léger sur l'image */
+  gsap.to('.about-image img', {
+    y: '12%',
+    ease: 'none',
     scrollTrigger: {
-      trigger: '.about-image-col',
-      start: 'top 80%',
-      once: true,
+      trigger: '.about',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
     },
   });
 </script>

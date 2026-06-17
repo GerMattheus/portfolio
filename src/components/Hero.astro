@@ -34,11 +34,11 @@ const lastName  = "Germano";
           <span class="hero-letter" aria-hidden="true">{l}</span>
         ))}
       </span>
-      <em class="hero-name-line hero-name-last">
+      <span class="hero-name-line">
         {lastName.split('').map(l => (
           <span class="hero-letter" aria-hidden="true">{l}</span>
         ))}
-      </em>
+      </span>
     </h1>
 
     <p class="hero-subtitle">
@@ -86,7 +86,7 @@ const lastName  = "Germano";
       to right,
       var(--bg-primary) 0%,
       var(--bg-primary) 30%,
-      rgba(10, 14, 13, 0.6) 60%,
+      rgba(0, 0, 0, 0.6) 60%,
       transparent 100%
     );
   }
@@ -108,7 +108,7 @@ const lastName  = "Germano";
   /* Sur mobile : image centrée, overlay opaque */
   @media (max-width: 767px) {
     .hero-image::after {
-      background: rgba(10, 14, 13, 0.75);
+      background: rgba(0, 0, 0, 0.75);
     }
   }
 
@@ -122,7 +122,7 @@ const lastName  = "Germano";
       background: linear-gradient(
         to right,
         var(--bg-primary) 0%,
-        rgba(10, 14, 13, 0.2) 60%,
+        rgba(0, 0, 0, 0.2) 60%,
         transparent 100%
       );
     }
@@ -177,11 +177,6 @@ const lastName  = "Germano";
   .hero-name-line {
     display: block;
     overflow: hidden;
-  }
-
-  .hero-name-last {
-    font-style: italic;
-    color: var(--text-primary);
   }
 
   .hero-letter {
