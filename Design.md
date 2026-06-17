@@ -232,7 +232,7 @@ description: "Implémentation en C d'une application de chat avec transfert de f
 stack: ["C", "pthreads", "termios", "Linux", "Machines virtuelles", "Programmation système", "Synchronisation"]
 context: "Cours IFT320 — Systèmes d'exploitation · Université de Sherbrooke"
 status: "Terminé · 2025"
-githubUrl: "https://github.com/GerMattheus/[à-créer]"   // PROJET À POUSSER SUR GITHUB
+Devoir en classe, peut pas être mis sur github
 ```
 
 **Visuel suggéré** : un terminal avec deux fenêtres côte à côte montrant le chat en action, ou — encore mieux — un GIF du transfert de fichier avec barre de progression. Claude Code peut générer un SVG schématique : deux VMs reliées par un tuyau "tampon circulaire", avec head/tail animés.
@@ -291,7 +291,6 @@ N'importe lequel transforme un TP standard en projet à thèse personnelle.
 ### 4.7 Contact
 - Fond légèrement plus clair (`--bg-secondary`) pour marquer la fin... OU mieux : utiliser `07-hero-cell-isolated.jpg` comme background plein écran de la section, avec un overlay sombre (`rgba(10,14,13,0.7)`) pour garder la lisibilité. L'image apporte une touche méditative en fin de parcours.
 - Email cliquable en gros : `germanofataki243@gmail.com`
-- Téléphone : `(438) 622-2513`
 - Localisation : `Sherbrooke, QC`
 - Liens : GitHub, LinkedIn (à ajouter)
 - Footer minimal : nom + année + ligne mono "Built with care · Sherbrooke 2026"
