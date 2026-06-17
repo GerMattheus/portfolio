@@ -1,0 +1,226 @@
+---
+// Tailles relatives basées sur la pertinence pour le profil bio-informatique
+const technical: Array<{ label: string; size: string }> = [
+  { label: "Python",       size: "2.4rem"  },
+  { label: "Java",         size: "2rem"    },
+  { label: "PostgreSQL",   size: "1.75rem" },
+  { label: "RStudio",      size: "1.6rem"  },
+  { label: "Excel (VBA)",  size: "1.3rem"  },
+  { label: "HTML / CSS",   size: "1.2rem"  },
+  { label: "Suite Office", size: "1rem"    },
+];
+
+const methodological = [
+  "Résolution de problèmes complexes",
+  "Approche méthodique",
+  "Planification & gestion de priorités",
+  "Travail d'équipe",
+  "Écoute active",
+];
+---
+
+<section class="skills" id="skills" aria-labelledby="skills-heading">
+
+  <!-- Image background : 04-skills-cells-green -->
+  <div class="skills-bg" aria-hidden="true"></div>
+
+  <div class="skills-container">
+
+    <p class="section-label" aria-hidden="true">03 · Compétences</p>
+    <h2 class="section-title" id="skills-heading">Ce que je maîtrise</h2>
+
+    <!-- Groupe Techniques -->
+    <div class="skills-group">
+      <h3 class="group-title">Techniques</h3>
+      <div class="skills-cloud technical">
+        {technical.map(s => (
+          <span
+            class="skill-tag skill-tech"
+            style={`font-size: ${s.size};`}
+          >
+            {s.label}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Groupe Méthodologiques -->
+    <div class="skills-group skills-group--method">
+      <h3 class="group-title">Méthodologiques</h3>
+      <div class="skills-cloud methodological">
+        {methodological.map((s, i) => (
+          <>
+            <span class="skill-tag skill-method">{s}</span>
+            {i < methodological.length - 1 && (
+              <span class="skill-separator" aria-hidden="true">·</span>
+            )}
+          </>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .skills {
+    position: relative;
+    background-color: var(--bg-primary);
+    padding-block: var(--space-16);
+    overflow: hidden;
+  }
+
+  /* Background : image 04 en opacité très réduite */
+  .skills-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/04-skills-cells-green.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
+    filter: blur(2px);
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .skills-container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+  }
+
+  @media (max-width: 767px) {
+    .skills { padding-block: var(--space-12); }
+    .skills-container { padding-inline: var(--space-4); }
+  }
+
+  /* Étiquette et titre */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--accent-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-title {
+    font-family: 'Fraunces Variable', 'Fraunces', serif;
+    font-size: var(--text-h1);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Groupes */
+  .skills-group {
+    margin-bottom: var(--space-8);
+  }
+
+  .skills-group--method {
+    max-width: 800px;
+  }
+
+  .group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--space-2);
+  }
+
+  /* Nuage typographique */
+  .skills-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  /* Tags techniques — mono, taille variable */
+  .skill-tech {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-primary);
+    line-height: 1;
+    cursor: default;
+    transition: color var(--duration-micro) var(--ease-out);
+  }
+
+  .skill-tech:hover {
+    color: var(--accent-primary);
+    animation: heartbeat 0.45s var(--ease-out);
+  }
+
+  /* Tags méthodologiques — Inter */
+  .skills-cloud.methodological {
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .skill-method {
+    font-family: 'Inter Variable', 'Inter', sans-serif;
+    font-size: var(--text-body);
+    color: var(--text-secondary);
+    cursor: default;
+    transition: color var(--duration-micro) var(--ease-out);
+  }
+
+  .skill-method:hover {
+    color: var(--text-primary);
+    animation: heartbeat 0.45s var(--ease-out);
+  }
+
+  .skill-separator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+  }
+
+  /* Pulsation battement de cœur */
+  @keyframes heartbeat {
+    0%   { transform: scale(1); }
+    25%  { transform: scale(1.08); }
+    55%  { transform: scale(0.97); }
+    75%  { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-tech:hover,
+    .skill-method:hover { animation: none; }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.skills .section-label, .skills .section-title', {
+    opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.skills', start: 'top 82%', once: true },
+  });
+
+  gsap.from('.skill-tech', {
+    opacity: 0, y: 12, duration: 0.5,
+    stagger: { amount: 0.5, from: 'start' },
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.technical', start: 'top 80%', once: true },
+  });
+
+  gsap.from('.skill-method, .skill-separator', {
+    opacity: 0, duration: 0.5,
+    stagger: { amount: 0.4, from: 'start' },
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.methodological', start: 'top 80%', once: true },
+  });
+</script>
