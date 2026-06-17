@@ -3,6 +3,7 @@ interface Project {
   index: string;
   title: string;
   subtitle: string;
+  shortDescription: string;
   description: string;
   stack: string[];
   context: string;
@@ -12,37 +13,77 @@ interface Project {
   codeNote?: string;
 }
 
-const projects: Project[] = [
+interface Group {
+  label: string;
+  projects: Project[];
+}
+
+const groups: Group[] = [
   {
-    index: "01",
-    title: "LifeQuest RPG",
-    subtitle: "Progressive Web App de développement personnel gamifié",
-    description: "Application web qui transforme les habitudes, objectifs et apprentissages quotidiens en système de jeu de rôle. Le personnage progresse à travers 8 compétences (Santé, Discipline, Études, Social, Relations, Finance, Maîtrise de soi, Créativité), accumule de l'XP via des quêtes (quotidiennes, hebdomadaires, mensuelles, personnalisées), répond à des quiz personnalisés, tient un journal et débloque des thèmes visuels via une monnaie virtuelle. Architecture full-frontend avec persistance locale (IndexedDB via Dexie.js), state management par stores Zustand, et installation native via PWA + Service Worker. Aucune donnée n'est envoyée à un serveur — tout reste sur l'appareil de l'utilisateur.",
-    stack: ["React 18", "TypeScript", "Vite", "TailwindCSS", "Zustand", "Dexie.js (IndexedDB)", "React Router v6", "Workbox PWA", "Recharts"],
-    context: "Projet personnel · Développé avec l'assistance de Claude Code",
-    status: "En développement actif",
-    githubUrl: "https://github.com/GerMattheus/lifequest-rpg",
-    liveUrl: "https://germanolifequest.netlify.app/",
+    label: "Projets personnels",
+    projects: [
+      {
+        index: "01",
+        title: "LifeQuest RPG",
+        subtitle: "Progressive Web App de développement personnel gamifié",
+        shortDescription: "Application web qui transforme habitudes et apprentissages en jeu de rôle. Personnage évolutif sur 8 compétences, persistance locale, installation native.",
+        description: "Application web qui transforme les habitudes, objectifs et apprentissages quotidiens en système de jeu de rôle. Le personnage progresse à travers 8 compétences (Santé, Discipline, Études, Social, Relations, Finance, Maîtrise de soi, Créativité), accumule de l'XP via des quêtes (quotidiennes, hebdomadaires, mensuelles, personnalisées), répond à des quiz personnalisés, tient un journal et débloque des thèmes visuels via une monnaie virtuelle. Architecture full-frontend avec persistance locale (IndexedDB via Dexie.js), state management par stores Zustand, et installation native via PWA + Service Worker. Aucune donnée n'est envoyée à un serveur — tout reste sur l'appareil de l'utilisateur.",
+        stack: ["React 18", "TypeScript", "Vite", "TailwindCSS", "Zustand", "Dexie.js (IndexedDB)", "React Router v6", "Workbox PWA", "Recharts"],
+        context: "Projet personnel · Développé avec l'assistance de Claude Code",
+        status: "En développement actif",
+        githubUrl: "https://github.com/GerMattheus/lifequest-rpg",
+        liveUrl: "https://germanolifequest.netlify.app/",
+      },
+      {
+        index: "02",
+        title: "Dotaro",
+        subtitle: "Réimplémentation moderne du Jeu Chimie de Kinshasa",
+        shortDescription: "Réimplémentation moderne du Jeu Chimie, jeu de stratégie traditionnel de Kinshasa. Moteur de détection de territoires, mode local et multijoueur temps réel.",
+        description: "Jeu de stratégie de territoire jouable en local ou à distance, inspiré du Jeu Chimie traditionnel joué en République Démocratique du Congo. Conception d'un moteur de jeu en TypeScript avec détection d'imbrications, gestion de cascades, et multijoueur temps réel via Supabase. Architecture séparée moteur/UI, tests Vitest, PWA installable. Une réimplémentation personnelle du jeu de mon enfance.",
+        stack: ["Vanilla TypeScript", "Vite", "Vitest", "Supabase Realtime", "SVG", "Lenis", "PWA"],
+        context: "Projet personnel",
+        status: "En développement actif",
+        githubUrl: "https://github.com/GerMattheus/Dotaro",
+      },
+      {
+        index: "03",
+        title: "Chessbot",
+        subtitle: "Moteur d'échecs en Python avec interface graphique",
+        shortDescription: "Moteur d'échecs Python avec interface pygame, jouable contre un humain. Architecture modulaire prévue pour intégrer un modèle de classification de positions par CNN.",
+        description: "Moteur d'échecs développé en Python qui joue contre un humain via une interface pygame. Implémentation des règles complètes du jeu, génération de coups légaux, algorithme de recherche pour évaluer les positions. Architecture modulaire conçue pour intégrer à terme un modèle de classification de positions (calmes vs tactiques) basé sur un CNN entraîné sur la Lichess Elite Database, avec déploiement futur en bot Lichess via l'API berserk.",
+        stack: ["Python", "pygame", "python-chess", "NumPy"],
+        context: "Projet personnel",
+        status: "Fonctionnel · Architecture ML en développement",
+        githubUrl: "https://github.com/GerMattheus/chessbot",
+      },
+    ],
   },
   {
-    index: "02",
-    title: "Dotaro",
-    subtitle: "Réimplémentation moderne du Jeu Chimie de Kinshasa",
-    description: "Jeu de stratégie de territoire jouable en local ou à distance, inspiré du Jeu Chimie traditionnel joué en République Démocratique du Congo. Conception d'un moteur de jeu en TypeScript avec détection d'imbrications, gestion de cascades, et multijoueur temps réel via Supabase. Architecture séparée moteur/UI, tests Vitest, PWA installable. Une réimplémentation personnelle du jeu de mon enfance.",
-    stack: ["Vanilla TypeScript", "Vite", "Vitest", "Supabase Realtime", "SVG", "Lenis", "PWA"],
-    context: "Projet personnel",
-    status: "En développement actif",
-    githubUrl: "https://github.com/GerMattheus/Dotaro",
-  },
-  {
-    index: "03",
-    title: "Chat & transfert RS-232 simulé",
-    subtitle: "Programmation système en C — pthreads, tampons circulaires, protocole binaire",
-    description: "Implémentation en C d'une application de chat avec transfert de fichiers, communicant entre deux machines virtuelles via une simulation du port série RS-232. Le cœur du système repose sur un tampon circulaire (compilable en kernel-mode ou userspace via macros), surmonté par un protocole binaire à header (FILE:nom:taille) qui distingue les messages texte des transferts binaires. L'application tourne sur trois threads synchronisés par mutex : un reader qui parse les trames entrantes via une machine à états, un writer qui gère l'entrée terminal en mode raw (termios), et un watchdog qui détecte les transferts bloqués (timeout 3 secondes) et sauvegarde les données partielles. Le tout avec affichage de progression en temps réel et récupération gracieuse en cas d'interruption.",
-    stack: ["C", "pthreads", "termios", "Linux", "Machines virtuelles", "Programmation système", "Synchronisation"],
-    context: "Cours IFT320 — Systèmes d'exploitation · Université de Sherbrooke",
-    status: "Terminé · 2025",
-    codeNote: "// code disponible sur demande",
+    label: "Projets académiques",
+    projects: [
+      {
+        index: "04",
+        title: "Extension du système de fichiers NACHOS",
+        subtitle: "Programmation système en C++ — hiérarchie de répertoires, table d'ouverts, isolation par thread",
+        shortDescription: "Extension du système de fichiers de NACHOS : hiérarchie de répertoires, table d'ouverts avec comptage de références, isolation par thread.",
+        description: "Extension du système de fichiers de NACHOS (OS pédagogique de UC Berkeley) avec hiérarchie de répertoires multi-niveaux, table système des fichiers ouverts avec comptage de références, et tables d'ouverts isolées par thread (double indirection). Implémentation des trois parties du TP avec gestion fine de la concurrence et des fuites de ressources. Tests d'intégration validés sur scénarios multi-threads sans corruption de données.",
+        stack: ["C++", "NACHOS", "Programmation système", "Multithreading", "Gestion mémoire"],
+        context: "Cours IFT320 — Systèmes d'exploitation · Université de Sherbrooke",
+        status: "Terminé · 2025",
+        codeNote: "// code disponible sur demande",
+      },
+      {
+        index: "05",
+        title: "Chat & transfert RS-232 simulé",
+        subtitle: "Programmation système en C — pthreads, tampons circulaires, protocole binaire",
+        shortDescription: "Application C de chat avec transfert de fichiers entre VMs simulant un port série. Multi-threadé (reader/writer/watchdog), protocole binaire custom.",
+        description: "Implémentation en C d'une application de chat avec transfert de fichiers, communicant entre deux machines virtuelles via une simulation du port série RS-232. Le cœur du système repose sur un tampon circulaire (compilable en kernel-mode ou userspace via macros), surmonté par un protocole binaire à header (FILE:nom:taille) qui distingue les messages texte des transferts binaires. L'application tourne sur trois threads synchronisés par mutex : un reader qui parse les trames entrantes via une machine à états, un writer qui gère l'entrée terminal en mode raw (termios), et un watchdog qui détecte les transferts bloqués (timeout 3 secondes) et sauvegarde les données partielles. Le tout avec affichage de progression en temps réel et récupération gracieuse en cas d'interruption.",
+        stack: ["C", "pthreads", "termios", "Linux", "Machines virtuelles", "Programmation système", "Synchronisation"],
+        context: "Cours IFT320 — Systèmes d'exploitation · Université de Sherbrooke",
+        status: "Terminé · 2025",
+        codeNote: "// code disponible sur demande",
+      },
+    ],
   },
 ];
 ---
@@ -63,51 +104,57 @@ const projects: Project[] = [
     <div class="projects-banner-overlay"></div>
     <div class="projects-banner-text">
       <h2 class="projects-heading" id="projects-heading">Projets</h2>
-      <p class="projects-count">— 03 projets sélectionnés</p>
+      <p class="projects-count">— 05 projets sélectionnés</p>
     </div>
   </div>
 
-  <!-- Liste des projets -->
-  <div class="projects-list">
-    {projects.map(p => (
-      <article
-        class="project-item"
-        data-index={p.index}
-        data-title={p.title}
-        data-subtitle={p.subtitle}
-        data-description={p.description}
-        data-stack={p.stack.join('|')}
-        data-context={p.context}
-        data-status={p.status}
-        data-github={p.githubUrl ?? ''}
-        data-live={p.liveUrl ?? ''}
-        data-code-note={p.codeNote ?? ''}
-        role="button"
-        tabindex="0"
-        aria-label={`Voir le projet ${p.title}`}
-      >
-        <span class="project-index" aria-hidden="true">{p.index}.</span>
+  <!-- Groupes de projets -->
+  {groups.map(group => (
+    <div class="projects-group">
+      <p class="group-label" aria-label={group.label}>{group.label.toUpperCase()}</p>
+      <div class="projects-list">
+        {group.projects.map(p => (
+          <article
+            class="project-item"
+            data-index={p.index}
+            data-title={p.title}
+            data-subtitle={p.subtitle}
+            data-description={p.description}
+            data-stack={p.stack.join('|')}
+            data-context={p.context}
+            data-status={p.status}
+            data-github={p.githubUrl ?? ''}
+            data-live={p.liveUrl ?? ''}
+            data-code-note={p.codeNote ?? ''}
+            role="button"
+            tabindex="0"
+            aria-label={`Voir le projet ${p.title}`}
+          >
+            <span class="project-index" aria-hidden="true">{p.index}.</span>
 
-        <div class="project-body">
-          <div class="project-top">
-            <h3 class="project-title">{p.title}</h3>
-            <span class="project-status">{p.status}</span>
-          </div>
-          <p class="project-subtitle"><em>{p.subtitle}</em></p>
-          <div class="project-stack">
-            {p.stack.slice(0, 5).map(tag => (
-              <span class="stack-tag">{tag}</span>
-            ))}
-            {p.stack.length > 5 && (
-              <span class="stack-tag stack-tag--more">+{p.stack.length - 5}</span>
-            )}
-          </div>
-        </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3 class="project-title">{p.title}</h3>
+                <span class="project-status">{p.status}</span>
+              </div>
+              <p class="project-subtitle"><em>{p.subtitle}</em></p>
+              <p class="project-short-desc">{p.shortDescription}</p>
+              <div class="project-stack">
+                {p.stack.slice(0, 5).map(tag => (
+                  <span class="stack-tag">{tag}</span>
+                ))}
+                {p.stack.length > 5 && (
+                  <span class="stack-tag stack-tag--more">+{p.stack.length - 5}</span>
+                )}
+              </div>
+            </div>
 
-        <span class="project-arrow" aria-hidden="true">→</span>
-      </article>
-    ))}
-  </div>
+            <span class="project-arrow" aria-hidden="true">→</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  ))}
 
   <!-- Modal -->
   <dialog class="project-modal" id="project-modal" aria-modal="true">
@@ -200,17 +247,40 @@ const projects: Project[] = [
     .projects-banner-text { left: var(--space-4); bottom: var(--space-4); }
   }
 
+  /* ── Groupes ─────────────────────────────────────── */
+  .projects-group {
+    padding-bottom: var(--space-8);
+  }
+
+  .projects-group:last-child {
+    padding-bottom: var(--space-12);
+  }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--accent-primary);
+    letter-spacing: 0.14em;
+    padding: var(--space-6) var(--space-8) var(--space-3);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  @media (max-width: 767px) {
+    .group-label { padding: var(--space-5) var(--space-4) var(--space-2); }
+  }
+
   /* ── Liste ───────────────────────────────────────── */
   .projects-list {
-    padding-bottom: var(--space-12);
+    display: flex;
+    flex-direction: column;
   }
 
   /* ── Carte projet — rangée compacte ─────────────── */
   .project-item {
     display: grid;
     grid-template-columns: 3.5rem 1fr 1.5rem;
-    align-items: center;
-    gap: var(--space-6);
+    align-items: start;
+    gap: var(--space-5);
     padding: var(--space-6) var(--space-8);
     border-top: 1px solid var(--border-subtle);
     border-left: 2px solid transparent;
@@ -250,8 +320,7 @@ const projects: Project[] = [
     font-size: 0.75rem;
     color: var(--text-muted);
     letter-spacing: 0.08em;
-    align-self: start;
-    padding-top: 4px;
+    padding-top: 5px;
   }
 
   /* Corps */
@@ -271,9 +340,9 @@ const projects: Project[] = [
 
   .project-title {
     font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: clamp(1.25rem, 2.5vw, var(--text-h3));
+    font-size: clamp(1.1rem, 2vw, var(--text-h3));
     color: var(--text-primary);
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.02em;
     font-weight: 400;
   }
@@ -292,6 +361,14 @@ const projects: Project[] = [
     font-size: var(--text-small);
     color: var(--text-secondary);
     line-height: 1.4;
+  }
+
+  /* Description courte */
+  .project-short-desc {
+    font-size: var(--text-small);
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 72ch;
   }
 
   /* Stack tags */
@@ -319,7 +396,10 @@ const projects: Project[] = [
   .project-arrow {
     font-size: 1rem;
     color: var(--text-muted);
-    transition: color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-out);
+    transition:
+      color var(--duration-micro) var(--ease-out),
+      transform var(--duration-micro) var(--ease-out);
+    padding-top: 5px;
     justify-self: end;
   }
 
@@ -483,7 +563,7 @@ const projects: Project[] = [
     });
 
     gsap.from('.project-item', {
-      opacity: 0, y: 20, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+      opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power2.out',
       scrollTrigger: { trigger: '.projects-list', start: 'top 82%', once: true },
     });
 
@@ -507,12 +587,12 @@ const projects: Project[] = [
     const live = card.dataset.live ?? '';
     const codeNote = card.dataset.codeNote ?? '';
 
-    $id('modal-index').textContent    = `Projet ${card.dataset.index}`;
-    $id('modal-title').textContent    = card.dataset.title ?? '';
-    $id('modal-subtitle').textContent = card.dataset.subtitle ?? '';
+    $id('modal-index').textContent       = `Projet ${card.dataset.index}`;
+    $id('modal-title').textContent       = card.dataset.title ?? '';
+    $id('modal-subtitle').textContent    = card.dataset.subtitle ?? '';
     $id('modal-description').textContent = card.dataset.description ?? '';
-    $id('modal-context').textContent  = card.dataset.context ?? '';
-    $id('modal-status').textContent   = card.dataset.status ?? '';
+    $id('modal-context').textContent     = card.dataset.context ?? '';
+    $id('modal-status').textContent      = card.dataset.status ?? '';
 
     $id('modal-stack').innerHTML = stack
       .map(t => `<span class="stack-tag">${t}</span>`)
@@ -520,8 +600,8 @@ const projects: Project[] = [
 
     const linksEl = $id('modal-links');
     linksEl.innerHTML = '';
-    if (github) linksEl.innerHTML += `<a class="modal-link" href="${github}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>`;
-    if (live)   linksEl.innerHTML += `<a class="modal-link" href="${live}" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>`;
+    if (github)   linksEl.innerHTML += `<a class="modal-link" href="${github}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>`;
+    if (live)     linksEl.innerHTML += `<a class="modal-link" href="${live}" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>`;
     if (codeNote) linksEl.innerHTML += `<span class="modal-code-note">${codeNote}</span>`;
 
     dialog.showModal();
