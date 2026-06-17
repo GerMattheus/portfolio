@@ -202,7 +202,11 @@ const tierSize: Record<1 | 2 | 3, string> = {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--space-3) var(--space-5);
+    gap: 12px 32px;
+  }
+
+  @media (max-width: 767px) {
+    .skills-cloud { gap: 10px 16px; }
   }
 
   /* ── Langages ─────────────────────────────────────── */
@@ -252,7 +256,7 @@ const tierSize: Record<1 | 2 | 3, string> = {
   /* ── Domaines ─────────────────────────────────────── */
   .domain-cloud {
     align-items: center;
-    gap: var(--space-3) var(--space-6);
+    gap: 12px 32px;
   }
 
   .skill-domain {
