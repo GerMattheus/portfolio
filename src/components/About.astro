@@ -2,143 +2,59 @@
 ---
 
 <section class="about" id="about" aria-labelledby="about-heading">
-
-  <!-- Image droite avec masque dégradé — Modèle A -->
-  <div class="about-image" aria-hidden="true">
-    <img
-      src="/images/03-about-cells-blue.jpg"
-      alt="Cellules fluorescentes bleu et blanc au microscope"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
-
-  <!-- Texte gauche -->
-  <div class="about-content">
+  <div class="about-inner">
 
     <p class="about-label" aria-hidden="true">01 · À propos</p>
 
     <p class="about-lede" id="about-heading">
-      J'ai passé deux ans à apprendre comment réparer le corps humain
-      à Kinshasa. Aujourd'hui, à Sherbrooke, j'apprends à parler aux
-      machines. Entre les deux, je cherche un langage commun.
+      J'ai commencé en médecine à Kinshasa. Aujourd'hui, j'apprends à coder à Sherbrooke.
     </p>
 
     <div class="about-body">
       <p>
-        J'ai commencé mes études en médecine à l'Université de Kinshasa.
-        J'aimais le milieu hospitalier, j'aimais l'idée de comprendre le
-        vivant de l'intérieur. Mais j'avais aussi cette autre fascination,
-        plus discrète, pour le code — pour ces systèmes invisibles qui
-        font tourner le monde moderne.
+        Après deux ans à l'Université de Kinshasa, je suis venu au Canada pour étudier
+        l'informatique à l'Université de Sherbrooke en régime coopératif.
       </p>
-
       <p>
-        Quand l'occasion s'est présentée de venir étudier au Canada, j'ai
-        fait un choix qui m'a longtemps semblé impossible à faire :
-        laisser la médecine. À l'Université de Sherbrooke, j'ai commencé
-        un baccalauréat en informatique.
+        Ce qui m'intéresse aujourd'hui, c'est d'apprendre à construire des systèmes :
+        des applications web, des moteurs de jeu, des outils qui résolvent un vrai
+        problème. Je casse, je recommence, je documente ce que j'apprends sur ce site.
       </p>
-
-      <blockquote class="about-pullquote">
-        Le génome humain est un programme qu'on apprend à lire.
-      </blockquote>
-
       <p>
-        Ce que j'ai découvert en chemin, c'est que ces deux mondes ne
-        sont pas si éloignés. La bio-informatique, et plus précisément
-        l'analyse de données génomiques, c'est exactement le pont que je
-        cherchais. Le génome humain est un programme qu'on apprend à lire.
-        Les mutations sont des bugs. Les protéines sont des fonctions. Et
-        quand on commence à voir le vivant comme un système informationnel,
-        beaucoup de choses prennent sens.
-      </p>
-
-      <p>
-        Je suis encore en début de parcours. J'apprends, je code, je
-        casse, je recommence. Mais je sais où je veux aller : à
-        l'intersection du code et du soin, là où les outils numériques
-        aident vraiment à comprendre le vivant.
+        Je cherche un premier stage pour mettre les mains dans des projets concrets
+        et apprendre auprès de gens qui font le métier depuis plus longtemps que moi.
       </p>
     </div>
 
   </div>
-
 </section>
 
 <style>
   .about {
-    position: relative;
     background-color: var(--bg-primary);
     padding-block: var(--space-16);
-    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
     .about { padding-block: var(--space-12); }
   }
 
-  /* ── Image droite (Modèle A) ─────────────────────── */
-  .about-image {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 56%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  /* Fondu de gauche (bg-primary) vers la droite (transparent) */
-  .about-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to right,
-      var(--bg-primary) 0%,
-      rgba(0, 0, 0, 0.88) 30%,
-      rgba(0, 0, 0, 0.6) 55%,
-      transparent 80%
-    );
-    z-index: 1;
-  }
-
-  .about-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  /* Mobile : image passe en fond plein avec overlay sombre */
-  @media (max-width: 767px) {
-    .about-image {
-      width: 100%;
-    }
-
-    .about-image::after {
-      background: rgba(0, 0, 0, 0.8);
-    }
-  }
-
-  /* ── Texte gauche ────────────────────────────────── */
-  .about-content {
-    position: relative;
-    z-index: 1;
-    max-width: 860px;
+  /* ── Conteneur lecture ───────────────────────────── */
+  .about-inner {
+    max-width: 680px;
+    margin-inline: auto;
     padding-inline: var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-6);
   }
 
   @media (max-width: 767px) {
-    .about-content {
-      max-width: 100%;
-      padding-inline: var(--space-4);
-    }
+    .about-inner { padding-inline: var(--space-4); }
   }
 
+  /* ── Label ───────────────────────────────────────── */
   .about-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
@@ -147,6 +63,7 @@
     text-transform: uppercase;
   }
 
+  /* ── Lede ────────────────────────────────────────── */
   .about-lede {
     font-family: 'Fraunces Variable', 'Fraunces', serif;
     font-size: var(--text-h3);
@@ -154,6 +71,7 @@
     color: var(--text-primary);
   }
 
+  /* ── Corps ───────────────────────────────────────── */
   .about-body {
     display: flex;
     flex-direction: column;
@@ -163,17 +81,6 @@
   .about-body p {
     color: var(--text-secondary);
     line-height: 1.72;
-    max-width: 58ch;
-  }
-
-  .about-pullquote {
-    border-left: 2px solid var(--accent-primary);
-    padding-left: var(--space-3);
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: clamp(1.05rem, 2vw, 1.28rem);
-    font-style: italic;
-    color: var(--text-primary);
-    line-height: 1.45;
   }
 </style>
 
@@ -189,20 +96,13 @@
     gsap.from('.about-label, .about-lede', {
       opacity: 0, y: 20, duration: 0.65, stagger: 0.1,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.about-content', start: 'top 82%', once: true },
+      scrollTrigger: { trigger: '.about-inner', start: 'top 82%', once: true },
     });
 
-    gsap.from('.about-body p, .about-pullquote', {
+    gsap.from('.about-body p', {
       opacity: 0, y: 16, duration: 0.6, stagger: 0.12,
       ease: 'power2.out',
       scrollTrigger: { trigger: '.about-body', start: 'top 82%', once: true },
-    });
-
-    gsap.to('.about-image img', {
-      y: '12%', ease: 'none',
-      scrollTrigger: {
-        trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true,
-      },
     });
   }
 </script>

@@ -21,149 +21,99 @@ const domains = [
 ];
 
 const tierSize: Record<1 | 2 | 3, string> = {
-  1: "2.4rem",
-  2: "1.85rem",
-  3: "1.3rem",
+  1: "2rem",
+  2: "1.5rem",
+  3: "1.1rem",
 };
 ---
 
 <section class="skills" id="skills" aria-labelledby="skills-heading">
+  <div class="skills-inner">
 
-  <div class="skills-image" aria-hidden="true">
-    <img
-      src="/images/04-skills-cells-green.jpg"
-      alt=""
-      loading="lazy"
-      decoding="async"
-    />
+    <!-- En-tête pleine largeur -->
+    <div class="skills-header">
+      <p class="skills-label" aria-hidden="true">03 · Compétences</p>
+      <h2 class="skills-title" id="skills-heading">Ce que je maîtrise</h2>
+    </div>
+
+    <!-- Grille 2×2 des sous-sections -->
+    <div class="subsections-grid">
+
+      <!-- LANGAGES -->
+      <div class="skills-subsection">
+        <p class="subsection-label">Langages</p>
+        <div class="skills-cloud lang-cloud">
+          {languages.map(l => (
+            <span
+              class={`skill-badge skill-lang skill-lang--tier-${l.tier}`}
+              style={`font-size: ${tierSize[l.tier]};`}
+            >
+              {l.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- FRAMEWORKS & BIBLIOTHÈQUES -->
+      <div class="skills-subsection">
+        <p class="subsection-label">Frameworks &amp; Bibliothèques</p>
+        <div class="skills-cloud">
+          {frameworks.map(f => (
+            <span class="skill-badge skill-fw">{f}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- OUTILS -->
+      <div class="skills-subsection">
+        <p class="subsection-label">Outils</p>
+        <div class="skills-cloud">
+          {tools.map(t => (
+            <span class="skill-badge skill-tool">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- DOMAINES D'INTÉRÊT -->
+      <div class="skills-subsection">
+        <p class="subsection-label">Domaines d'intérêt</p>
+        <div class="skills-cloud">
+          {domains.map(d => (
+            <span class="skill-badge skill-domain">{d}</span>
+          ))}
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div class="skills-content">
-
-    <p class="skills-label" aria-hidden="true">03 · Compétences</p>
-    <h2 class="skills-title" id="skills-heading">Ce que je maîtrise</h2>
-
-    <!-- LANGAGES -->
-    <div class="skills-subsection">
-      <p class="subsection-label">Langages</p>
-      <div class="skills-cloud lang-cloud">
-        {languages.map(l => (
-          <span
-            class="skill-tag skill-lang"
-            style={`font-size: ${tierSize[l.tier]};`}
-          >
-            {l.label}
-          </span>
-        ))}
-      </div>
-    </div>
-
-    <!-- FRAMEWORKS & BIBLIOTHÈQUES -->
-    <div class="skills-subsection">
-      <p class="subsection-label">Frameworks &amp; Bibliothèques</p>
-      <div class="skills-cloud fw-cloud">
-        {frameworks.map(f => (
-          <span class="skill-tag skill-fw">{f}</span>
-        ))}
-      </div>
-    </div>
-
-    <!-- OUTILS -->
-    <div class="skills-subsection">
-      <p class="subsection-label">Outils</p>
-      <div class="skills-cloud tool-cloud">
-        {tools.map(t => (
-          <span class="skill-tag skill-tool">{t}</span>
-        ))}
-      </div>
-    </div>
-
-    <!-- DOMAINES D'INTÉRÊT -->
-    <div class="skills-subsection">
-      <p class="subsection-label">Domaines d'intérêt</p>
-      <div class="skills-cloud domain-cloud">
-        {domains.map(d => (
-          <span class="skill-tag skill-domain">{d}</span>
-        ))}
-      </div>
-    </div>
-
-  </div>
-
 </section>
 
 <style>
   .skills {
-    position: relative;
     background-color: var(--bg-primary);
     padding-block: var(--space-16);
-    overflow: hidden;
+    border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
     .skills { padding-block: var(--space-12); }
   }
 
-  /* ── Image background ──────────────────────────────── */
-  .skills-image {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 58%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  .skills-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to right,
-      #000000 0%,
-      rgba(0, 0, 0, 0.92) 18%,
-      rgba(0, 0, 0, 0.65) 40%,
-      rgba(0, 0, 0, 0.25) 68%,
-      rgba(0, 0, 0, 0.1) 85%,
-      transparent 100%
-    );
-    z-index: 1;
-  }
-
-  .skills-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.38) saturate(0.55);
+  /* ── Conteneur ───────────────────────────────────── */
+  .skills-inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
   }
 
   @media (max-width: 767px) {
-    .skills-image {
-      width: 100%;
-    }
-    .skills-image::after {
-      background: rgba(0, 0, 0, 0.88);
-    }
+    .skills-inner { padding-inline: var(--space-4); }
   }
 
-  /* ── Contenu ──────────────────────────────────────── */
-  .skills-content {
-    position: relative;
-    z-index: 1;
-    max-width: 820px;
-    padding-left: var(--space-8);
-    padding-right: var(--space-4);
-  }
-
-  @media (max-width: 767px) {
-    .skills-content {
-      max-width: 100%;
-      padding-left: var(--space-4);
-      padding-right: var(--space-4);
-    }
-  }
-
+  /* ── En-tête ──────────────────────────────────────── */
   .skills-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
@@ -179,12 +129,28 @@ const tierSize: Record<1 | 2 | 3, string> = {
     color: var(--text-primary);
     letter-spacing: -0.02em;
     line-height: 1;
-    margin-bottom: var(--space-10);
   }
 
-  /* ── Sous-sections ───────────────────────────────── */
+  /* ── Grille 2×2 ──────────────────────────────────── */
+  .subsections-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-8);
+  }
+
+  @media (max-width: 767px) {
+    .subsections-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── Sous-section ────────────────────────────────── */
   .skills-subsection {
-    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
   }
 
   .subsection-label {
@@ -193,91 +159,100 @@ const tierSize: Record<1 | 2 | 3, string> = {
     color: var(--accent-primary);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: var(--space-3);
-    border-bottom: 1px solid var(--border-subtle);
     padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
+  /* ── Cloud de badges ─────────────────────────────── */
   .skills-cloud {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 12px 32px;
+    align-items: center;
+    gap: 8px;
   }
 
-  @media (max-width: 767px) {
-    .skills-cloud { gap: 10px 16px; }
+  .lang-cloud {
+    align-items: flex-end; /* aligne les baselines en bas pour la hiérarchie de taille */
   }
 
-  /* ── Langages ─────────────────────────────────────── */
-  .skill-lang {
+  /* ── Badge de base ───────────────────────────────── */
+  .skill-badge {
     font-family: 'JetBrains Mono', monospace;
-    color: var(--text-primary);
-    line-height: 1;
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    line-height: 1.5;
     cursor: default;
-    transition: color var(--duration-micro) var(--ease-out);
+    transition:
+      color var(--duration-micro) var(--ease-out),
+      border-color var(--duration-micro) var(--ease-out);
+  }
+
+  /* ── Langages — hiérarchie par tier ─────────────── */
+  .skill-lang--tier-1 {
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
+
+  .skill-lang--tier-2 {
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+
+  .skill-lang--tier-3 {
+    color: var(--text-muted);
+    border-color: var(--border-subtle);
   }
 
   .skill-lang:hover {
-    color: var(--accent-primary);
+    color: var(--accent-primary) !important;
+    border-color: var(--accent-primary);
     animation: heartbeat 0.45s var(--ease-out);
   }
 
-  /* ── Frameworks ───────────────────────────────────── */
+  /* ── Frameworks ──────────────────────────────────── */
   .skill-fw {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.15rem;
+    font-size: 1rem;
     color: var(--text-primary);
-    line-height: 1;
-    cursor: default;
-    transition: color var(--duration-micro) var(--ease-out);
   }
 
   .skill-fw:hover {
     color: var(--accent-primary);
+    border-color: var(--accent-primary);
     animation: heartbeat 0.45s var(--ease-out);
   }
 
-  /* ── Outils ───────────────────────────────────────── */
+  /* ── Outils ──────────────────────────────────────── */
   .skill-tool {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: var(--text-secondary);
-    line-height: 1;
-    cursor: default;
-    transition: color var(--duration-micro) var(--ease-out);
   }
 
   .skill-tool:hover {
     color: var(--text-primary);
+    border-color: var(--text-muted);
     animation: heartbeat 0.45s var(--ease-out);
   }
 
-  /* ── Domaines ─────────────────────────────────────── */
-  .domain-cloud {
-    align-items: center;
-    gap: 12px 32px;
-  }
-
+  /* ── Domaines ────────────────────────────────────── */
   .skill-domain {
     font-family: 'Inter Variable', 'Inter', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.9375rem;
     font-style: italic;
     color: var(--text-secondary);
-    cursor: default;
-    transition: color var(--duration-micro) var(--ease-out);
+    border-color: var(--border-subtle);
   }
 
   .skill-domain:hover {
     color: var(--text-primary);
+    border-color: var(--border);
     animation: heartbeat 0.45s var(--ease-out);
   }
 
   @keyframes heartbeat {
     0%   { transform: scale(1); }
-    25%  { transform: scale(1.08); }
-    55%  { transform: scale(0.97); }
-    75%  { transform: scale(1.04); }
+    25%  { transform: scale(1.06); }
+    55%  { transform: scale(0.98); }
+    75%  { transform: scale(1.03); }
     100% { transform: scale(1); }
   }
 
@@ -301,27 +276,20 @@ const tierSize: Record<1 | 2 | 3, string> = {
     gsap.from('.skills-label, .skills-title', {
       opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.skills-content', start: 'top 82%', once: true },
+      scrollTrigger: { trigger: '.skills-header', start: 'top 82%', once: true },
     });
 
     gsap.from('.skills-subsection', {
-      opacity: 0, y: 18, duration: 0.55, stagger: 0.12,
+      opacity: 0, y: 18, duration: 0.55, stagger: 0.1,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.skills-content', start: 'top 78%', once: true },
+      scrollTrigger: { trigger: '.subsections-grid', start: 'top 80%', once: true },
     });
 
     gsap.from('.skill-lang', {
-      opacity: 0, y: 12, duration: 0.5,
-      stagger: { amount: 0.45, from: 'start' },
+      opacity: 0, y: 10, duration: 0.45,
+      stagger: { amount: 0.4, from: 'start' },
       ease: 'power2.out',
       scrollTrigger: { trigger: '.lang-cloud', start: 'top 82%', once: true },
-    });
-
-    gsap.to('.skills-image img', {
-      y: '12%', ease: 'none',
-      scrollTrigger: {
-        trigger: '.skills', start: 'top bottom', end: 'bottom top', scrub: true,
-      },
     });
   }
 </script>
