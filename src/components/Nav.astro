@@ -32,13 +32,15 @@ const cvHref = "/cv.pdf";
     border-radius: 2px;
     border: 1px solid transparent;
     transition:
+      top var(--duration-base) var(--ease-out),
       background var(--duration-base) var(--ease-out),
       border-color var(--duration-base) var(--ease-out),
       backdrop-filter var(--duration-base) var(--ease-out);
   }
 
   nav.scrolled {
-    background: rgba(10, 14, 13, 0.75);
+    top: 0;
+    background: rgba(10, 14, 13, 0.85);
     border-color: var(--border-subtle);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
