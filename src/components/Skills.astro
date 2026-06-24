@@ -1,17 +1,11 @@
 ---
-const languages: Array<{ label: string; tier: 1 | 2 | 3 }> = [
-  { label: "Python",           tier: 1 },
-  { label: "TypeScript",       tier: 1 },
-  { label: "Java",             tier: 2 },
-  { label: "C",                tier: 2 },
-  { label: "C++",              tier: 2 },
-  { label: "JavaScript",       tier: 3 },
-  { label: "SQL / PostgreSQL", tier: 3 },
+const languages = [
+  "Python", "TypeScript", "Java", "C", "C++", "JavaScript", "SQL / PostgreSQL",
 ];
 
-const frameworks = ["React", "Astro", "TailwindCSS", "pygame", "python-chess"];
+const frameworks = ["React", "Astro", "TailwindCSS"];
 
-const tools = ["Git / GitHub", "Linux", "Vite", "Vitest"];
+const tools = ["Git / GitHub", "Linux"];
 
 const domains = [
   "Bio-informatique",
@@ -19,37 +13,21 @@ const domains = [
   "Machine learning appliqué",
   "Développement web",
 ];
-
-const tierSize: Record<1 | 2 | 3, string> = {
-  1: "2rem",
-  2: "1.5rem",
-  3: "1.1rem",
-};
 ---
 
 <section class="skills" id="skills" aria-labelledby="skills-heading">
   <div class="skills-inner">
 
-    <!-- En-tête pleine largeur -->
-    <div class="skills-header">
-      <p class="skills-label" aria-hidden="true">03 · Compétences</p>
-      <h2 class="skills-title" id="skills-heading">Ce que je maîtrise</h2>
-    </div>
+    <p class="skills-label" id="skills-heading">03 · Compétences</p>
 
-    <!-- Grille 2×2 des sous-sections -->
     <div class="subsections-grid">
 
       <!-- LANGAGES -->
       <div class="skills-subsection">
         <p class="subsection-label">Langages</p>
-        <div class="skills-cloud lang-cloud">
+        <div class="skills-cloud">
           {languages.map(l => (
-            <span
-              class={`skill-badge skill-lang skill-lang--tier-${l.tier}`}
-              style={`font-size: ${tierSize[l.tier]};`}
-            >
-              {l.label}
-            </span>
+            <span class="skill-badge skill-lang">{l}</span>
           ))}
         </div>
       </div>
@@ -91,12 +69,12 @@ const tierSize: Record<1 | 2 | 3, string> = {
 <style>
   .skills {
     background-color: var(--bg-primary);
-    padding-block: var(--space-16);
+    padding-block: var(--space-12);
     border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
-    .skills { padding-block: var(--space-12); }
+    .skills { padding-block: var(--space-8); }
   }
 
   /* ── Conteneur ───────────────────────────────────── */
@@ -106,29 +84,20 @@ const tierSize: Record<1 | 2 | 3, string> = {
     padding-inline: var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-6);
   }
 
   @media (max-width: 767px) {
     .skills-inner { padding-inline: var(--space-4); }
   }
 
-  /* ── En-tête ──────────────────────────────────────── */
+  /* ── Label section ───────────────────────────────── */
   .skills-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-3);
-  }
-
-  .skills-title {
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-h1);
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1;
   }
 
   /* ── Grille 2×2 ──────────────────────────────────── */
@@ -137,13 +106,11 @@ const tierSize: Record<1 | 2 | 3, string> = {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-8);
     border-top: 1px solid var(--border-subtle);
-    padding-top: var(--space-8);
+    padding-top: var(--space-6);
   }
 
   @media (max-width: 767px) {
-    .subsections-grid {
-      grid-template-columns: 1fr;
-    }
+    .subsections-grid { grid-template-columns: 1fr; }
   }
 
   /* ── Sous-section ────────────────────────────────── */
@@ -171,10 +138,6 @@ const tierSize: Record<1 | 2 | 3, string> = {
     gap: 8px;
   }
 
-  .lang-cloud {
-    align-items: flex-end; /* aligne les baselines en bas pour la hiérarchie de taille */
-  }
-
   /* ── Badge de base ───────────────────────────────── */
   .skill-badge {
     font-family: 'JetBrains Mono', monospace;
@@ -187,24 +150,14 @@ const tierSize: Record<1 | 2 | 3, string> = {
       border-color var(--duration-micro) var(--ease-out);
   }
 
-  /* ── Langages — hiérarchie par tier ─────────────── */
-  .skill-lang--tier-1 {
+  /* ── Langages ────────────────────────────────────── */
+  .skill-lang {
+    font-size: 1rem;
     color: var(--text-primary);
-    border-color: var(--border);
-  }
-
-  .skill-lang--tier-2 {
-    color: var(--text-secondary);
-    border-color: var(--border);
-  }
-
-  .skill-lang--tier-3 {
-    color: var(--text-muted);
-    border-color: var(--border-subtle);
   }
 
   .skill-lang:hover {
-    color: var(--accent-primary) !important;
+    color: var(--accent-primary);
     border-color: var(--accent-primary);
     animation: heartbeat 0.45s var(--ease-out);
   }
@@ -273,23 +226,16 @@ const tierSize: Record<1 | 2 | 3, string> = {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduced) {
-    gsap.from('.skills-label, .skills-title', {
-      opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
+    gsap.from('.skills-label', {
+      opacity: 0, y: 20, duration: 0.6,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.skills-header', start: 'top 82%', once: true },
+      scrollTrigger: { trigger: '.skills-inner', start: 'top 82%', once: true },
     });
 
     gsap.from('.skills-subsection', {
       opacity: 0, y: 18, duration: 0.55, stagger: 0.1,
       ease: 'power2.out',
       scrollTrigger: { trigger: '.subsections-grid', start: 'top 80%', once: true },
-    });
-
-    gsap.from('.skill-lang', {
-      opacity: 0, y: 10, duration: 0.45,
-      stagger: { amount: 0.4, from: 'start' },
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.lang-cloud', start: 'top 82%', once: true },
     });
   }
 </script>

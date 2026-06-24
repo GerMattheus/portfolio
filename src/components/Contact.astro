@@ -6,7 +6,7 @@ const location = "Sherbrooke, QC";
 
 const links = [
   { label: "GitHub", href: "https://github.com/GerMattheus" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/mattheus-germano" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/mattheusgermano" },
 ];
 ---
 
@@ -20,12 +20,7 @@ const links = [
   <!-- Contenu -->
   <div class="contact-inner">
 
-    <div class="contact-header">
-      <p class="contact-label" aria-hidden="true">06 · Contact</p>
-      <h2 class="contact-title" id="contact-heading">
-        Travaillons<br />ensemble.
-      </h2>
-    </div>
+    <p class="contact-label" id="contact-heading">06 · Contact</p>
 
     <div class="contact-body">
 
@@ -47,6 +42,15 @@ const links = [
               {l.label} ↗
             </a>
           ))}
+          <a
+            class="contact-link contact-link--cv"
+            href="/cv.pdf"
+            download
+            aria-label="Télécharger le CV (PDF)"
+            role="listitem"
+          >
+            CV ↓
+          </a>
         </div>
       </div>
 
@@ -69,13 +73,13 @@ const links = [
   .contact {
     position: relative;
     background-color: var(--bg-primary);
-    padding-top: var(--space-16);
+    padding-top: var(--space-12);
     overflow: hidden;
     border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
-    .contact { padding-top: var(--space-12); }
+    .contact { padding-top: var(--space-8); }
   }
 
   /* ── Hélice décorative ───────────────────────────── */
@@ -101,37 +105,27 @@ const links = [
     max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: var(--space-8);
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-12);
+    gap: var(--space-6);
   }
 
   @media (max-width: 767px) {
     .contact-inner {
       padding-inline: var(--space-4);
-      padding-bottom: var(--space-12);
-      gap: var(--space-8);
+      padding-bottom: var(--space-6);
+      gap: var(--space-4);
     }
   }
 
-  /* ── En-tête ─────────────────────────────────────── */
+  /* ── Label section ───────────────────────────────── */
   .contact-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-3);
-  }
-
-  .contact-title {
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-h1);
-    color: var(--text-primary);
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    font-weight: 400;
   }
 
   /* ── Corps ───────────────────────────────────────── */
@@ -193,6 +187,18 @@ const links = [
 
   .contact-link:hover { color: var(--accent-cool); }
 
+  /* Lien CV — légèrement mis en valeur */
+  .contact-link--cv {
+    color: var(--accent-primary);
+    border: 1px solid var(--border);
+    padding: 1px 8px;
+  }
+
+  .contact-link--cv:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+  }
+
   /* ── Footer ──────────────────────────────────────── */
   .site-footer {
     position: relative;
@@ -232,10 +238,10 @@ const links = [
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduced) {
-    gsap.from('.contact-label, .contact-title', {
-      opacity: 0, y: 24, duration: 0.7, stagger: 0.12,
+    gsap.from('.contact-label', {
+      opacity: 0, y: 24, duration: 0.7,
       ease: 'power2.out',
-      scrollTrigger: { trigger: '.contact-header', start: 'top 82%', once: true },
+      scrollTrigger: { trigger: '.contact-inner', start: 'top 82%', once: true },
     });
 
     gsap.from('.contact-email', {

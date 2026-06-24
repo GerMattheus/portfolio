@@ -51,10 +51,7 @@ const categories: Category[] = [
 
   <div class="hobbies-inner">
 
-    <div class="hobbies-header">
-      <p class="hobbies-label" aria-hidden="true">05 · Intérêts</p>
-      <h2 class="hobbies-title" id="hobbies-heading">En dehors du code</h2>
-    </div>
+    <p class="hobbies-label" id="hobbies-heading">05 · Intérêts</p>
 
     <div class="hobbies-grid">
       {categories.map((cat, i) => (
@@ -95,12 +92,12 @@ const categories: Category[] = [
 <style>
   .hobbies {
     background-color: var(--bg-primary);
-    padding-block: var(--space-16);
+    padding-block: var(--space-12);
     border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
-    .hobbies { padding-block: var(--space-12); }
+    .hobbies { padding-block: var(--space-8); }
   }
 
   .hobbies-inner {
@@ -109,33 +106,23 @@ const categories: Category[] = [
     padding-inline: var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-10);
+    gap: var(--space-6);
   }
 
   @media (max-width: 767px) {
     .hobbies-inner {
       padding-inline: var(--space-4);
-      gap: var(--space-8);
+      gap: var(--space-4);
     }
   }
 
-  /* ── En-tête ─────────────────────────────────────── */
+  /* ── Label section ───────────────────────────────── */
   .hobbies-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: var(--text-mono);
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-2);
-  }
-
-  .hobbies-title {
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-h1);
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    font-weight: 400;
   }
 
   /* ── Grille 3 colonnes ───────────────────────────── */
@@ -165,7 +152,7 @@ const categories: Category[] = [
     .hobby-col {
       border-right: none;
       border-bottom: 1px solid var(--border-subtle);
-      padding: var(--space-5) 0;
+      padding: var(--space-4) 0;
     }
     .hobby-col:last-child { border-bottom: none; }
   }
@@ -254,9 +241,9 @@ const categories: Category[] = [
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduced) {
-    gsap.from('.hobbies-label, .hobbies-title', {
-      opacity: 0, y: 20, duration: 0.6, stagger: 0.1, ease: 'power2.out',
-      scrollTrigger: { trigger: '.hobbies-header', start: 'top 82%', once: true },
+    gsap.from('.hobbies-label', {
+      opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: '.hobbies-inner', start: 'top 82%', once: true },
     });
 
     gsap.from('.hobby-col', {

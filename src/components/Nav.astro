@@ -4,6 +4,7 @@ const links = [
   { label: "Projets",    href: "#projects" },
   { label: "Contact",    href: "#contact" },
 ];
+const cvHref = "/cv.pdf";
 ---
 
 <nav aria-label="Navigation principale">
@@ -13,6 +14,11 @@ const links = [
         <a href={link.href}>{link.label}</a>
       </li>
     ))}
+    <li>
+      <a class="nav-cv" href={cvHref} download aria-label="Télécharger le CV (PDF)">
+        CV ↓
+      </a>
+    </li>
   </ul>
 </nav>
 
@@ -72,6 +78,20 @@ const links = [
 
   a:hover::after {
     width: 100%;
+  }
+
+  /* Lien CV — bordure fine, pas d'underline animé */
+  .nav-cv {
+    border: 1px solid var(--border);
+    padding: 1px 8px;
+    color: var(--accent-primary);
+  }
+
+  .nav-cv::after { display: none; }
+
+  .nav-cv:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
   }
 
   @media (max-width: 640px) {
