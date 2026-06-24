@@ -25,7 +25,7 @@ const cvHref = "/cv.pdf";
 <style>
   nav {
     position: fixed;
-    top: var(--space-4);
+    top: var(--space-2);
     right: var(--space-4);
     z-index: 100;
     padding: 6px var(--space-3);
@@ -96,7 +96,7 @@ const cvHref = "/cv.pdf";
 
   @media (max-width: 640px) {
     nav {
-      top: var(--space-3);
+      top: var(--space-2);
       right: var(--space-3);
     }
 
@@ -107,16 +107,8 @@ const cvHref = "/cv.pdf";
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
   const nav = document.querySelector('nav') as HTMLElement;
-
-  ScrollTrigger.create({
-    start: 'top -40',
-    onEnter: () => nav.classList.add('scrolled'),
-    onLeaveBack: () => nav.classList.remove('scrolled'),
-  });
+  const update = () => nav.classList.toggle('scrolled', window.scrollY > 50);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 </script>
