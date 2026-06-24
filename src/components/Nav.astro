@@ -107,7 +107,16 @@ const cvHref = "/cv.pdf";
 </style>
 
 <script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
   const nav = document.querySelector('nav') as HTMLElement;
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  ScrollTrigger.create({
+    start: 'top -40',
+    onEnter: () => nav.classList.add('scrolled'),
+    onLeaveBack: () => nav.classList.remove('scrolled'),
+  });
 </script>

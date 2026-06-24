@@ -22,8 +22,7 @@ const entries = [
 <section class="formation" id="formation" aria-labelledby="formation-heading">
   <div class="formation-content">
 
-    <p class="formation-label" aria-hidden="true">02 · Formation</p>
-    <h2 class="formation-title" id="formation-heading">Parcours</h2>
+    <p class="formation-label" id="formation-heading">02 · Formation</p>
 
     <div class="formation-list">
       {entries.map(e => (
@@ -50,12 +49,12 @@ const entries = [
 <style>
   .formation {
     background-color: var(--bg-primary);
-    padding-block: var(--space-12);
+    padding-block: var(--space-8);
     border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 767px) {
-    .formation { padding-block: var(--space-8); }
+    .formation { padding-block: var(--space-6); }
   }
 
   /* ── Contenu centré ──────────────────────────────── */
@@ -77,16 +76,7 @@ const entries = [
     color: var(--accent-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-3);
-  }
-
-  .formation-title {
-    font-family: 'Fraunces Variable', 'Fraunces', serif;
-    font-size: var(--text-h1);
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
   }
 
   /* ── Cartes ──────────────────────────────────────── */
@@ -187,7 +177,7 @@ const entries = [
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduced) {
-    gsap.from('.formation-label, .formation-title', {
+    gsap.from('.formation-label', {
       opacity: 0, y: 20, duration: 0.6, stagger: 0.1,
       ease: 'power2.out',
       scrollTrigger: { trigger: '.formation-content', start: 'top 82%', once: true },
