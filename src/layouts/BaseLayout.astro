@@ -10,6 +10,9 @@ const {
   title = "Mattheus Germano — Étudiant en informatique",
   description = "Portfolio de Mattheus Germano, étudiant en informatique à l'Université de Sherbrooke, passionné par la bio-informatique et l'analyse de données génomiques.",
 } = Astro.props;
+
+const siteUrl = Astro.url.origin;
+const ogImage = `${siteUrl}/images/image2.jpg`;
 ---
 
 <!DOCTYPE html>
@@ -20,6 +23,21 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="author" content="Mattheus Germano" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="fr_CA" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
