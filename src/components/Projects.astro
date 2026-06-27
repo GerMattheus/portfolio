@@ -147,6 +147,17 @@ const groups: Group[] = [
                   <span class="stack-tag stack-tag--more">+{p.stack.length - 5}</span>
                 )}
               </div>
+              {p.githubUrl && (
+                <a
+                  class="project-github-link"
+                  href={p.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Code source de ${p.title} sur GitHub`}
+                >
+                  GitHub ↗
+                </a>
+              )}
             </div>
 
             <span class="project-arrow" aria-hidden="true">→</span>
@@ -392,6 +403,25 @@ const groups: Group[] = [
     border-style: dashed;
   }
 
+  .project-github-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    width: fit-content;
+    margin-top: var(--space-1);
+    transition:
+      color var(--duration-micro) var(--ease-out),
+      border-color var(--duration-micro) var(--ease-out);
+  }
+
+  .project-github-link:hover {
+    color: var(--accent-cool);
+    border-color: var(--accent-cool);
+  }
+
   /* Flèche */
   .project-arrow {
     font-size: 1rem;
@@ -609,6 +639,10 @@ const groups: Group[] = [
       gsap.from('.modal-inner', { opacity: 0, y: 14, duration: 0.3, ease: 'power2.out' });
     }
   }
+
+  document.querySelectorAll<HTMLAnchorElement>('.project-github-link').forEach(link => {
+    link.addEventListener('click', e => e.stopPropagation());
+  });
 
   document.querySelectorAll<HTMLElement>('.project-item').forEach(card => {
     card.addEventListener('click', () => openModal(card));
