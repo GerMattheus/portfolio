@@ -7,25 +7,24 @@
     <p class="about-label" aria-hidden="true">01 · À propos</p>
 
     <p class="about-lede" id="about-heading">
-      J'ai commencé en médecine à Kinshasa. Aujourd'hui, j'apprends à coder à Sherbrooke.
+      Je recherche mon premier stage en développement logiciel. Étudiant en
+      informatique à l'Université de Sherbrooke en régime coopératif, j'ai
+      commencé en médecine à Kinshasa avant de choisir cette voie.
     </p>
 
     <div class="about-body">
-      <p>
-        Après deux années en médecine à l'Université de Kinshasa, j'ai choisi de
-        réorienter mon parcours vers l'informatique et de poursuivre mes études à
-        l'Université de Sherbrooke en régime coopératif.
-      </p>
       <p>
         Ce qui m'intéresse aujourd'hui, c'est de comprendre comment on conçoit des
         systèmes : applications web, moteurs de jeu, outils qui résolvent un problème
         concret. Je code, je teste, je documente ce que j'apprends sur ce site.
       </p>
       <p>
-        Je suis à la recherche d'un premier stage pour contribuer à des projets
-        concrets et apprendre auprès d'une équipe expérimentée.
+        Je suis disponible pour un stage à partir de l'automne 2026, à Sherbrooke,
+        Montréal ou en télétravail. Si mon parcours vous intéresse, contactez-moi.
       </p>
     </div>
+
+    <a class="about-cta" href="#contact">Me contacter</a>
 
   </div>
 </section>
@@ -83,6 +82,26 @@
     color: var(--text-secondary);
     line-height: 1.72;
   }
+
+  /* ── CTA ─────────────────────────────────────────── */
+  .about-cta {
+    align-self: flex-start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-mono);
+    color: var(--accent-primary);
+    text-decoration: none;
+    border: 1px solid var(--accent-primary);
+    background: transparent;
+    padding: 10px 20px;
+    transition:
+      color var(--duration-micro) var(--ease-out),
+      background-color var(--duration-micro) var(--ease-out);
+  }
+
+  .about-cta:hover {
+    color: var(--bg-primary);
+    background-color: var(--accent-primary);
+  }
 </style>
 
 <script>
@@ -100,7 +119,7 @@
       scrollTrigger: { trigger: '.about-inner', start: 'top 82%', once: true },
     });
 
-    gsap.from('.about-body p', {
+    gsap.from('.about-body p, .about-cta', {
       opacity: 0, y: 16, duration: 0.6, stagger: 0.12,
       ease: 'power2.out',
       scrollTrigger: { trigger: '.about-body', start: 'top 82%', once: true },
